@@ -1,10 +1,26 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
+from rest_framework.authtoken.models import Token
+from rest_framework.validators import UniqueValidator
 
 
-class UserSerializer(serializers.ModelSerializer):
-    role = serializers.SlugRelatedField(read_only=True, slug_field='is_organizer')
+class UserProfileSerializer(serializers.ModelSerializer):
+    is_organizer = serializers.SlugRelatedField(read_only=True, slug_field='is_organizer')
 
     class Meta:
         model = get_user_model()
-        fields = ['id', 'email', 'username', 'role']
+        fields = ['id', 'email', 'username', 'is_organizer', 'first_name', 'last_name', 'password']
+        read_only_fields = ['email', 'username', 'role', 'id']
+        extra_kwargs = {'password': {'write_only': True,
+                                     'min_length': 8}}
+
+
+class RegisterUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = get_user_model()
+        fields = ['email', 'username', 'first_name', 'last_name', 'password']
+        extra_kwargs = {'password': {'write_only': True,
+                                     'min_length': 8},
+                        'email': {'required': True,
+                                  'validators': [UniqueValidator(queryset=get_user_model().objects.all())]}}

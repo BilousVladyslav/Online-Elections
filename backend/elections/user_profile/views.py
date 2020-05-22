@@ -1,9 +1,12 @@
 from django.shortcuts import render
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+from rest_framework.generics import GenericAPIView
+from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin
 from django.contrib.auth import get_user_model
-from .serializers import UserSerializer
+from .serializers import UserProfileSerializer, RegisterUserSerializer
 
 
 class CustomAuthToken(ObtainAuthToken):
@@ -16,11 +19,27 @@ class CustomAuthToken(ObtainAuthToken):
         token, created = Token.objects.get_or_create(user=user)
         return Response({
             'token': token.key,
-            'user_id': user.pk,
-            'email': user.email
+            'username': user.username,
+            'is_created': created
         })
 
-    def get(self, request, *args, **kwargs):
-        users = get_user_model().objects.all()
-        serializer = UserSerializer(users, many=True)
-        return Response(serializer.data)
+
+class UserProfile(GenericAPIView, UpdateModelMixin, RetrieveModelMixin):
+    serializer_class = UserProfileSerializer
+    queryset = get_user_model().objects.all()
+
+    def get_object(self):
+        return self.request.user
+
+    def get(self, request):
+        return self.retrieve(request)
+
+    def put(self, request):
+        return self.update(request)
+
+
+class RegistrationGenericView(GenericAPIView, CreateModelMixin):
+    serializer_class = RegisterUserSerializer
+
+    def post(self, request):
+        return self.create(request)
