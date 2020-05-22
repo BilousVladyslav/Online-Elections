@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin
@@ -24,7 +25,9 @@ class CustomAuthToken(ObtainAuthToken):
         })
 
 
-class UserProfile(GenericAPIView, UpdateModelMixin, RetrieveModelMixin):
+class UserProfile(GenericAPIView, UpdateModelMixin, RetrieveModelMixin, DestroyModelMixin):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [BasicAuthentication, SessionAuthentication]
     serializer_class = UserProfileSerializer
     queryset = get_user_model().objects.all()
 
@@ -36,6 +39,9 @@ class UserProfile(GenericAPIView, UpdateModelMixin, RetrieveModelMixin):
 
     def put(self, request):
         return self.update(request)
+
+    def delete(self, request):
+        return self.delete(request)
 
 
 class RegistrationGenericView(GenericAPIView, CreateModelMixin):
