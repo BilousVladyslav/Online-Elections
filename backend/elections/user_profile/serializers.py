@@ -9,8 +9,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ['id', 'email', 'username', 'is_organizer', 'first_name', 'last_name', 'password']
-        read_only_fields = ['email', 'username', 'role', 'id']
+        fields = ['email', 'username', 'is_organizer', 'first_name', 'last_name', 'password']
+        read_only_fields = ['email', 'username', 'role']
         extra_kwargs = {'password': {'write_only': True,
                                      'min_length': 8}}
 
@@ -23,4 +23,6 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {'write_only': True,
                                      'min_length': 8},
                         'email': {'required': True,
-                                  'validators': [UniqueValidator(queryset=get_user_model().objects.all())]}}
+                                  'validators': [UniqueValidator(queryset=get_user_model().objects.all())]},
+                        'last_name': {'required': True},
+                        'first_name': {'required': True}}

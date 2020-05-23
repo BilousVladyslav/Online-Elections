@@ -7,8 +7,12 @@ from user_profile import views as user_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^api-token-auth/', views.obtain_auth_token),
-    url(r'^token-auth/', user_views.CustomAuthToken.as_view()),
-    url(r'^register/', user_views.RegistrationGenericView.as_view()),
-    url(r'^profile/', user_views.UserProfile.as_view()),
+
+    url(r'^api/profile/', user_views.UserProfile.as_view()),
+    url(r'^api/profile/token-auth/', user_views.CustomAuthToken.as_view()),
+    url(r'^api/profile/register/', user_views.RegistrationGenericView.as_view()),
+
+    # url(r'^api/vote_constructor/', user_views.RegistrationGenericView.as_view()),
+
+    # url(r'^api/voting/', user_views.RegistrationGenericView.as_view()),
 ]
