@@ -13,18 +13,18 @@ vote_router.register(r'questions', construct_views.QuestionCreatingViewSet, base
 choice_router = NestedSimpleRouter(vote_router, r'questions', lookup='choice')
 choice_router.register(r'choices', construct_views.ChoiceCreatingViewSet, basename='choices')
 
+voters_router = NestedSimpleRouter(router, r'constructor', lookup='voter')
+voters_router.register(r'voters', construct_views.VoterCreatingViewSet, basename='voters')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^', include(router.urls)),
+    url(r'^', include(voters_router.urls)),
     url(r'^', include(vote_router.urls)),
     url(r'^', include(choice_router.urls)),
     url(r'^api/profile/', user_views.UserProfile.as_view()),
     url(r'^api/profile/token-auth/', user_views.CustomAuthToken.as_view()),
     url(r'^api/profile/register/', user_views.RegistrationGenericView.as_view()),
-
-    # url(r'^api/constructor/(?P<pk>\d*)$', construct_views.VotingCreatingGenericView.as_view()),
-    # url(r'^api/constructor/question/(?P<pk_question>\d*)$', construct_views.QuestionCreatingGenericView.as_view()),
 
     # url(r'^api/voting/', user_views.RegistrationGenericView.as_view()),
 ]

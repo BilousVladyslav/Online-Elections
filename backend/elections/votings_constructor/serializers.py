@@ -1,7 +1,8 @@
+from django.conf import settings
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from rest_framework.validators import UniqueValidator
-from .models import Voting, Question, Choice
+from .models import Voting, Question, Choice, Voter
 
 
 class ChoiceConstructorSerializer(serializers.ModelSerializer):
@@ -39,3 +40,28 @@ class VotingConstructorSerializer(serializers.ModelSerializer):
         model = Voting
         fields = ['voting_title', 'voting_description', 'date_started', 'date_finished', 'organizer', 'questions']
         read_only_fields = ['questions']
+
+
+class VoterConstructorSerializer(serializers.ModelSerializer):
+    user = serializers.SlugRelatedField(slug_field='email', read_only=True)
+    voting = serializers.SlugRelatedField(slug_field='id', read_only=True)
+    user_email = serializers.EmailField(required=True)
+
+    class Meta:
+        model = Voter
+        fields = ['user', 'voting', 'id', 'user_email']
+        read_only_fields = ['voting', 'id', 'user']
+        extra_kwargs = {'user_email': {'write_only': True}}
+
+    def validate_user_email(self, value):
+        model = settings.AUTH_USER_MODEL
+        try:
+            model.objects.get(email=value)
+        except:
+            raise serializers.ValidationError("User with this email does not exist.")
+        return model
+
+    def create(self, validated_data):
+        voter = Voter(user=validated_data['user_email'], voting=self.context['voting'])
+        voter.save()
+        return voter
