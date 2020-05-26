@@ -26,3 +26,11 @@ class RegisterUserSerializer(serializers.ModelSerializer):
                                   'validators': [UniqueValidator(queryset=get_user_model().objects.all())]},
                         'last_name': {'required': True},
                         'first_name': {'required': True}}
+
+    def create(self, validated_data):
+        password = validated_data.pop('password')
+        model = get_user_model()
+        user = model(**validated_data)
+        user.set_password(password)
+        user.save()
+        return user

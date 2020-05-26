@@ -22,7 +22,7 @@ urlpatterns = [
     url(r'^', include(voters_router.urls)),
     url(r'^', include(vote_router.urls)),
     url(r'^', include(choice_router.urls)),
-    url(r'^api/profile/', user_views.UserProfile.as_view()),
+    url(r'^api/profile/$', user_views.UserProfile.as_view()),
     url(r'^api/profile/token-auth/', user_views.CustomAuthToken.as_view()),
     url(r'^api/profile/register/', user_views.RegistrationGenericView.as_view()),
 
