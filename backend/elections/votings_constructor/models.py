@@ -10,7 +10,7 @@ class Voting(models.Model):
     voting_description = models.CharField(blank=False, max_length=1000)
     date_created = models.DateTimeField(auto_now_add=True, editable=False)
     date_started = models.DateTimeField(blank=False)
-    duration = models.DurationField(blank=False)
+    date_finished = models.DateTimeField(blank=False)
     organizer = models.ForeignKey(settings.AUTH_USER_MODEL,
                                   related_name='votings',
                                   on_delete=models.SET_NULL,
