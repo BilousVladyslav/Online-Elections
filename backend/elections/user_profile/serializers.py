@@ -9,10 +9,10 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ['email', 'username', 'is_organizer', 'first_name', 'last_name', 'password']
+        fields = ['email', 'username', 'is_organizer', 'first_name', 'last_name']
         read_only_fields = ['email', 'username', 'role']
-        extra_kwargs = {'password': {'write_only': True,
-                                     'min_length': 8}}
+        # extra_kwargs = {'password': {'write_only': True,
+        #                              'min_length': 8}}
 
 
 class RegisterUserSerializer(serializers.ModelSerializer):

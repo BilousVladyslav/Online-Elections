@@ -10,7 +10,7 @@ from rest_framework.mixins import CreateModelMixin, \
     DestroyModelMixin, ListModelMixin
 from .serializers import VotingConstructorSerializer, \
     QuestionConstructorSerializer, ChoiceConstructorSerializer, \
-    VoterConstructorSerializer
+    VoterConstructorSerializer, VoterListConstructorSerializer
 from .models import Voting, Question, Choice, Voter
 from .permisions import IsOrganizer
 from . import mixins
@@ -38,7 +38,7 @@ class VotingCreatingViewSet(GenericViewSet, UpdateModelMixin, RetrieveModelMixin
 
     def get_queryset(self):
         return Voting.objects.filter(organizer=self.request.user,
-                                     date_started__lte=timezone.now())
+                                     date_started__gt=timezone.now())
 
     def perform_create(self, serializer):
         return serializer.save(organizer=self.request.user)
@@ -48,7 +48,6 @@ class VoterCreatingViewSet(ViewSet, mixins.QuerysetModelMixin):
 
     permission_classes = [IsAuthenticated, IsOrganizer]
     authentication_classes = [BasicAuthentication, SessionAuthentication, TokenAuthentication]
-    serializer_class = VoterConstructorSerializer
     lookup_field = 'id'
     lookup_url_kwarg = 'voter_pk'
     model = Voter
@@ -56,24 +55,24 @@ class VoterCreatingViewSet(ViewSet, mixins.QuerysetModelMixin):
     def list(self, request, voter_vote_pk=None):
         queryset = self.get_queryset(voting=voter_vote_pk,
                                      voting__organizer=request.user,
-                                     voting__date_started__lte=timezone.now())
-        serializer = self.serializer_class(queryset, many=True)
+                                     voting__date_started__gt=timezone.now())
+        serializer = VoterListConstructorSerializer(queryset, many=True)
         return Response(serializer.data)
 
     def destroy(self, request, voter_pk=None, voter_vote_pk=None):
         voter = self.get_object(voter_pk,
                                 voting=voter_vote_pk,
                                 voting__organizer=request.user,
-                                voting__date_started__lte=timezone.now())
+                                voting__date_started__gt=timezone.now())
         voter.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def create(self, request, voter_vote_pk=None):
         queryset = Voting.objects.filter(organizer=self.request.user,
-                                         date_started__lte=timezone.now())
+                                         date_started__gt=timezone.now())
         voting = get_object_or_404(queryset, pk=voter_vote_pk)
 
-        serializer = self.serializer_class(data=request.data, context={'voting': voting})
+        serializer = VoterConstructorSerializer(data=request.data, context={'voting': voting})
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -90,30 +89,30 @@ class QuestionCreatingViewSet(ConstructorViewSet):
     def list(self, request, voting_vote_pk=None):
         return self.list_model(vote=voting_vote_pk,
                                vote__organizer=request.user,
-                               vote__date_started__lte=timezone.now())
+                               vote__date_started__gt=timezone.now())
 
     def create(self, request, voting_vote_pk=None):
         return self.create_model(request, voting_vote_pk,
                                  organizer=request.user,
-                                 date_started__lte=timezone.now())
+                                 date_started__gt=timezone.now())
 
     def retrieve(self, request, question_pk=None, voting_vote_pk=None):
         return self.retrieve_model(question_pk,
                                    vote=voting_vote_pk,
                                    vote__organizer=request.user,
-                                   vote__date_started__lte=timezone.now())
+                                   vote__date_started__gt=timezone.now())
 
     def update(self, request, question_pk=None, voting_vote_pk=None):
         return self.update_model(request, question_pk,
                                  vote=voting_vote_pk,
                                  vote__organizer=request.user,
-                                 vote__date_started__lte=timezone.now())
+                                 vote__date_started__gt=timezone.now())
 
     def destroy(self, request, question_pk=None, voting_vote_pk=None):
         return self.destroy_model(question_pk,
                                   vote=voting_vote_pk,
                                   vote__organizer=request.user,
-                                  vote__date_started__lte=timezone.now())
+                                  vote__date_started__gt=timezone.now())
 
 
 class ChoiceCreatingViewSet(ConstructorViewSet):
@@ -128,32 +127,32 @@ class ChoiceCreatingViewSet(ConstructorViewSet):
         return self.list_model(question=choice_question_pk,
                                question__vote=voting_vote_pk,
                                question__vote__organizer=request.user,
-                               question__vote__date_started__lte=timezone.now())
+                               question__vote__date_started__gt=timezone.now())
 
     def create(self, request, voting_vote_pk=None, choice_question_pk=None):
         return self.create_model(request, choice_question_pk,
                                  vote=voting_vote_pk,
                                  vote__organizer=request.user,
-                                 vote__date_started__lte=timezone.now())
+                                 vote__date_started__gt=timezone.now())
 
     def retrieve(self, request, choice_pk=None, voting_vote_pk=None, choice_question_pk=None):
         return self.retrieve_model(choice_pk,
                                    question=choice_question_pk,
                                    question__vote=voting_vote_pk,
                                    question__vote__organizer=request.user,
-                                   question__vote__date_started__lte=timezone.now())
+                                   question__vote__date_started__gt=timezone.now())
 
     def update(self, request, choice_pk=None, voting_vote_pk=None, choice_question_pk=None):
         return self.update_model(request, choice_pk,
                                  question=choice_question_pk,
                                  question__vote=voting_vote_pk,
                                  question__vote__organizer=request.user,
-                                 question__vote__date_started__lte=timezone.now())
+                                 question__vote__date_started__gt=timezone.now())
 
     def destroy(self, request, choice_pk=None, voting_vote_pk=None, choice_question_pk=None):
         return self.destroy_model(choice_pk,
                                   question=choice_question_pk,
                                   question__vote=voting_vote_pk,
                                   question__vote__organizer=request.user,
-                                  question__vote__date_started__lte=timezone.now())
+                                  question__vote__date_started__gt=timezone.now())
 

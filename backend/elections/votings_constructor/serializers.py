@@ -1,4 +1,6 @@
 from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from rest_framework.validators import UniqueValidator
@@ -42,26 +44,31 @@ class VotingConstructorSerializer(serializers.ModelSerializer):
         read_only_fields = ['questions']
 
 
-class VoterConstructorSerializer(serializers.ModelSerializer):
-    user = serializers.SlugRelatedField(slug_field='email', read_only=True)
-    voting = serializers.SlugRelatedField(slug_field='id', read_only=True)
-    user_email = serializers.EmailField(required=True)
+class VoterListConstructorSerializer(serializers.ModelSerializer):
+    user = serializers.SlugRelatedField(read_only=True, slug_field='email')
+    voting = serializers.SlugRelatedField(read_only=True, slug_field='id')
 
     class Meta:
         model = Voter
-        fields = ['user', 'voting', 'id', 'user_email']
-        read_only_fields = ['voting', 'id', 'user']
-        extra_kwargs = {'user_email': {'write_only': True}}
+        fields = ['id', 'user', 'voting']
+
+
+class VoterConstructorSerializer(serializers.Serializer):
+    user_email = serializers.EmailField()
 
     def validate_user_email(self, value):
-        model = settings.AUTH_USER_MODEL
         try:
-            model.objects.get(email=value)
-        except:
+            user = get_user_model().objects.get(email=value)
+        except ObjectDoesNotExist:
             raise serializers.ValidationError("User with this email does not exist.")
-        return model
+
+        try:
+            voter = Voter.objects.get(user=user, voting=self.context['voting'])
+        except ObjectDoesNotExist:
+            return user
+        raise serializers.ValidationError("Voter is already exist.")
 
     def create(self, validated_data):
         voter = Voter(user=validated_data['user_email'], voting=self.context['voting'])
         voter.save()
-        return voter
+        return validated_data

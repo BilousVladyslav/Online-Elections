@@ -48,7 +48,7 @@ class Voter(models.Model):
                                related_name='voters',
                                on_delete=models.CASCADE,
                                editable=False)
-    voting_date = models.DateTimeField(blank=True, editable=False)
+    voting_date = models.DateTimeField(null=True, editable=False)
     is_already_voted = models.BooleanField(default=False, blank=False, editable=False)
 
     def vote(self):
