@@ -55,6 +55,7 @@ class Voter(models.Model):
         if not self.is_already_voted:
             self.voting_date = timezone.now()
             self.is_already_voted = True
+            self.save()
 
 
 @receiver(post_save, sender=Voting)

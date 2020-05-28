@@ -1,3 +1,55 @@
-from django.shortcuts import render
+from django.utils import timezone
+from django.contrib.auth import get_user_model
+from rest_framework.viewsets import GenericViewSet, ViewSet, ReadOnlyModelViewSet
+from rest_framework.generics import GenericAPIView, get_object_or_404
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
+from votings_constructor.models import Voting, Question, Choice, Voter
+from .serializers import VotingSerializer, VotesSerializer
+from .utils import get_questions
 
-# Create your views here.
+
+class VotesViewSet(ReadOnlyModelViewSet):
+
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [BasicAuthentication, SessionAuthentication, TokenAuthentication]
+    serializer_class = VotesSerializer
+    lookup_field = 'id'
+    lookup_url_kwarg = 'vote_pk'
+
+    def get_queryset(self):
+        return Voting.objects.filter(voters__user=self.request.user,
+                                     date_started__lt=timezone.now(),
+                                     date_finished__gt=timezone.now())
+
+
+class VoteSubmitAPIView(ViewSet):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [BasicAuthentication, SessionAuthentication, TokenAuthentication]
+    serializer_class = VotingSerializer
+
+    def get_queryset(self):
+        return Voting.objects.filter(voters__user=self.request.user,
+                                     date_started__lt=timezone.now(),
+                                     date_finished__gt=timezone.now())
+
+    def list(self, request, voting_vote_pk=None):
+        voting = get_object_or_404(self.get_queryset(), id=voting_vote_pk)
+        voter = Voter.objects.get(voting=voting, user=request.user)
+        data = {
+            'already_voted': voter.is_already_voted,
+            'voting_date': voter.voting_date
+        }
+        if not voter.is_already_voted:
+            data.update({
+                'questions': get_questions(voting)
+            })
+        return Response(data)
+
+    def create(self, request, voting_vote_pk=None):
+        voting = get_object_or_404(self.get_queryset(), id=voting_vote_pk)
+        serializer = VotingSerializer(data=request.data, context={'voting': voting, 'request': request})
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)

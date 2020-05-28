@@ -40,7 +40,7 @@ class VotingConstructorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Voting
-        fields = ['voting_title', 'voting_description', 'date_started', 'date_finished', 'organizer', 'questions']
+        fields = ['id', 'voting_title', 'voting_description', 'date_started', 'date_finished', 'organizer', 'questions']
         read_only_fields = ['questions']
 
 
