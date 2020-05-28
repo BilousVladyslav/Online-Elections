@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from rest_framework.authtoken.models import Token
 from rest_framework.validators import UniqueValidator
 
 
@@ -11,8 +10,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = get_user_model()
         fields = ['email', 'username', 'is_organizer', 'first_name', 'last_name']
         read_only_fields = ['email', 'username', 'role']
-        # extra_kwargs = {'password': {'write_only': True,
-        #                              'min_length': 8}}
 
 
 class RegisterUserSerializer(serializers.ModelSerializer):

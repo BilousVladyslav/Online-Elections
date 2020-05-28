@@ -1,12 +1,13 @@
 from django.utils import timezone
-from django.contrib.auth import get_user_model
-from rest_framework.viewsets import GenericViewSet, ViewSet, ReadOnlyModelViewSet
-from rest_framework.generics import GenericAPIView, get_object_or_404
+
+from rest_framework.viewsets import ViewSet, ReadOnlyModelViewSet
+from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
+
 from votings_constructor.models import Voting, Question, Choice, Voter
-from .serializers import VotingSerializer, VotesSerializer
+from .serializers import VotingSerializer, VotesSerializer, QuestionResultSerializer
 from .utils import get_questions
 
 
@@ -52,4 +53,18 @@ class VoteSubmitAPIView(ViewSet):
         serializer = VotingSerializer(data=request.data, context={'voting': voting, 'request': request})
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        return Response(serializer.data)
+
+
+class QuestionResultsViewSet(ViewSet):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [BasicAuthentication, SessionAuthentication, TokenAuthentication]
+    lookup_field = 'id'
+    lookup_url_kwarg = 'vote_pk'
+
+    def list(self, request, voting_vote_pk=None):
+        queryset = Question.objects.filter(vote__voters__user=request.user,
+                                           vote__date_finished__lte=timezone.now(),
+                                           vote__pk=voting_vote_pk)
+        serializer = QuestionResultSerializer(queryset, many=True)
         return Response(serializer.data)

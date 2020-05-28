@@ -1,13 +1,13 @@
 from django.utils import timezone
+
 from rest_framework import status
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
+from rest_framework.response import Response
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ViewSet
-from rest_framework.mixins import CreateModelMixin, \
-    RetrieveModelMixin, UpdateModelMixin, \
-    DestroyModelMixin, ListModelMixin
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
+from rest_framework import mixins as rest_mixins
+
 from .serializers import VotingConstructorSerializer, \
     QuestionConstructorSerializer, ChoiceConstructorSerializer, \
     VoterConstructorSerializer, VoterListConstructorSerializer
@@ -27,8 +27,12 @@ class ConstructorViewSet(ViewSet, mixins.QuerysetModelMixin,
     lookup_field = 'id'
 
 
-class VotingCreatingViewSet(GenericViewSet, UpdateModelMixin, RetrieveModelMixin,
-                            DestroyModelMixin, CreateModelMixin, ListModelMixin):
+class VotingCreatingViewSet(rest_mixins.GenericViewSet,
+                            rest_mixins.ListModelMixin,
+                            rest_mixins.UpdateModelMixin,
+                            rest_mixins.CreateModelMixin,
+                            rest_mixins.DestroyModelMixin,
+                            rest_mixins.RetrieveModelMixin):
 
     permission_classes = [IsAuthenticated, IsOrganizer]
     authentication_classes = [BasicAuthentication, SessionAuthentication, TokenAuthentication]
