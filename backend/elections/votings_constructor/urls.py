@@ -1,6 +1,8 @@
-from django.conf.urls import url
 from django.urls import include
+from django.conf.urls import url
+
 from rest_framework_nested.routers import DefaultRouter, NestedSimpleRouter
+
 from .views import VotingCreatingViewSet, QuestionCreatingViewSet, ChoiceCreatingViewSet, VoterCreatingViewSet
 
 

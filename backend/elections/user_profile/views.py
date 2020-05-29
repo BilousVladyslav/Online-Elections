@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.contrib.auth import get_user_model
+
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
@@ -6,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin
-from django.contrib.auth import get_user_model
+
 from .serializers import UserProfileSerializer, RegisterUserSerializer
 
 
@@ -20,7 +21,7 @@ class CustomAuthToken(ObtainAuthToken):
         token, _ = Token.objects.get_or_create(user=user)
         return Response({
             'token': token.key,
-            'username': user.username
+            'is_organizer': user.role.is_organizer
         })
 
 

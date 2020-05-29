@@ -20,9 +20,7 @@ class VotesViewSet(ReadOnlyModelViewSet):
     lookup_url_kwarg = 'vote_pk'
 
     def get_queryset(self):
-        return Voting.objects.filter(voters__user=self.request.user,
-                                     date_started__lt=timezone.now(),
-                                     date_finished__gt=timezone.now())
+        return Voting.objects.filter(voters__user=self.request.user)
 
 
 class VoteSubmitAPIView(ViewSet):

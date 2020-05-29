@@ -27,7 +27,7 @@ class ConstructorViewSet(ViewSet, mixins.QuerysetModelMixin,
     lookup_field = 'id'
 
 
-class VotingCreatingViewSet(rest_mixins.GenericViewSet,
+class VotingCreatingViewSet(GenericViewSet,
                             rest_mixins.ListModelMixin,
                             rest_mixins.UpdateModelMixin,
                             rest_mixins.CreateModelMixin,
