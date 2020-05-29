@@ -7,7 +7,7 @@ import { AuthorizationService } from 'src/app/core/services/authorization.servic
 @Component({
   selector: 'navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss'],
+  styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   private subscription: Subscription;

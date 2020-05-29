@@ -1,1 +1,4 @@
-<p>footer works!</p>
+
+<h3>{{ 'changeLocale' | translate:locale.language }}</h3>
+
+<button *ngFor="let item of schema" (click)="setLocale(item.locale)">{{ item.text }}</button>
