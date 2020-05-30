@@ -20,12 +20,12 @@ export const l10nConfig: L10nConfig = {
         timeZone: "America/Los_Angeles"
       },
       dir: "ltr",
-      text: "United States"
+      text: "English"
     },
     {
-      locale: { language: "uk-UA", currency: "UAH", timeZone: "Europe/Rome" },
+      locale: { language: "uk-UA", currency: "UAH", timeZone: "Europe/Kiev" },
       dir: "ltr",
-      text: "Ukraine"
+      text: "Українська",
     }
   ]
 };
