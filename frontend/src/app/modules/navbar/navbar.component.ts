@@ -1,8 +1,15 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AuthorizationService } from 'src/app/core/services/authorization.service';
+import {
+  L10N_CONFIG,
+  L10nConfig,
+  L10N_LOCALE,
+  L10nLocale,
+  L10nTranslationService
+} from "angular-l10n";
 
 @Component({
   selector: 'navbar',
@@ -13,12 +20,18 @@ export class NavbarComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   querryFormControl: FormControl;
 
+  schema = this.l10nConfig.schema;
   isLogged: boolean = false;
   is_organizer: boolean = false;
 
+  selectedLanguage = this.schema[0].locale;
+
   constructor(
     private router: Router,
-    private autorizationService: AuthorizationService
+    private autorizationService: AuthorizationService,
+    @Inject(L10N_LOCALE) public locale: L10nLocale,
+    @Inject(L10N_CONFIG) private l10nConfig: L10nConfig,
+    private translation: L10nTranslationService
   ) {
     autorizationService.isLoggedIn.subscribe(x => this.isLogged = x);
     this.isOrganizer();
@@ -28,7 +41,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.querryFormControl = new FormControl('');
     this.isOrganizer();
-    console.log(this.is_organizer);
+    this.translation.onError().subscribe({
+      next: (error: any) => {
+        if (error) console.log(error);
+      }
+    });
   }
 
   logOut() {
@@ -42,6 +59,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.subscription = this.autorizationService
       .IsOrganizer.subscribe(data => this.is_organizer = data);
     return this.is_organizer;
+  }
+
+  setLocale(locale: L10nLocale): void {
+    this.translation.setLocale(locale);
   }
 
   ngOnDestroy(): void {

@@ -8,24 +8,30 @@
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
       <!--<li class="nav-item"><a routerLink="/clinic/clinics" class="nav-link">Clinics</a></li>
-      <li class="nav-item"><a routerLink="/doctor/doctors" class="nav-link">Doctors</a></li>
+    <li class="nav-item"><a routerLink="/doctor/doctors" class="nav-link">Doctors</a></li>
 
-      <li class="active nav-item" *ngIf="isLogged" [ngSwitch]="this.autorizationService?.currentUser?.Is_Organizer">
-        <ng-template ngSwitchCase="true">
-          <a routerLink="/admin" class="nav-link" data-toggle="dropdown"> Your profile </a>
-        </ng-template>
-        <ng-template ngSwitchCase="false">
-          <a routerLink="/clinic-admin" class="nav-link" data-toggle="dropdown"> Your profile </a>
-        </ng-template>
-      </li>-->
+    <li class="active nav-item" *ngIf="isLogged" [ngSwitch]="this.autorizationService?.currentUser?.Is_Organizer">
+      <ng-template ngSwitchCase="true">
+        <a routerLink="/admin" class="nav-link" data-toggle="dropdown"> Your profile </a>
+      </ng-template>
+      <ng-template ngSwitchCase="false">
+        <a routerLink="/clinic-admin" class="nav-link" data-toggle="dropdown"> Your profile </a>
+      </ng-template>
+    </li>-->
 
     </ul>
-    <ul class="nav navbar-nav ml-auto">
-      <li *ngIf="isLogged">
+    <mat-form-field class="nav navbar-nav ml-auto" style="width: 120px">
+      <mat-label style="color: white">{{ 'changeLocale' | translate:locale.language }}</mat-label>
+      <mat-select [(value)]="selectedLanguage" style="color: white">
+        <mat-option [value]="item.locale" (click)="setLocale(item.locale)" *ngFor="let item of schema">{{ item.text }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <ul class="nav navbar-nav" style="width: 120px">
+      <li *ngIf="isLogged" class="mx-auto">
         <a (click)="logOut()" class="nav-link"><b>Logout</b></a>
       </li>
-      <li>
-        <!--<login-component *ngIf="!isLogged"></login-component>-->
+      <li class="mx-auto">
+        <login-component *ngIf="!isLogged"></login-component>
       </li>
     </ul>
   </div>

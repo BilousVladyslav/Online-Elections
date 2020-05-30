@@ -1,0 +1,61 @@
+<ul class="nav navbar-nav ml-auto">
+  <li class="dropdown nav-item">
+    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><b>{{ 'login.title' | translate:locale.language }}</b> <span class="caret"></span></a>
+    <ul id="login-dp" class="dropdown-menu">
+      <li class="p-0">
+        <div class="row">
+          <div class="col-lg-12">
+            {{ 'login.subtitle' | translate:locale.language }}
+            <form class="form" role="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" action="login"
+                  accept-charset="UTF-8" id="login-nav">
+              <div class="form-group">
+                <label class="sr-only" for="exampleInputEmail2">{{ 'login.username.title' | translate:locale.language }}</label>
+                <input type="text" formControlName="username" class="form-control" id="exampleInputEmail2"
+                       placeholder="{{ 'login.username.title' | translate:locale.language }}" required>
+                <div *ngIf=" loginForm.controls.username.errors && submited">
+                  <div *ngIf="loginForm.controls.username.errors.required" class="error-message">
+                    *{{ 'login.username.required' | translate:locale.language }}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="sr-only"
+                       for="exampleInputPassword2">{{ 'login.password.title' | translate:locale.language }}</label>
+                <input type="password" formControlName="password" class="form-control" id="exampleInputPassword2"
+                       placeholder="{{ 'login.password.title' | translate:locale.language }}" required>
+                <div *ngIf="loginForm.controls.password.errors && submited">
+                  <div *ngIf="loginForm.controls.password.errors.required" class="error-message">
+                    *{{ 'login.password.required' | translate:locale.language }}
+                  </div>
+                  <!--<div *ngIf="loginForm.controls.password.errors.pattern" class="error-message">
+                    *{{ 'login.password.regex.title' | translate:locale.language }} :
+                    <ul>
+                      <li>
+                        {{ 'login.password.regex.letters' | translate:locale.language }}
+                      </li>
+                      <li>
+                        {{ 'login.password.regex.digits' | translate:locale.language }}
+                      </li>
+                      <li>
+                        {{ 'login.password.regex.character' | translate:locale.language }}
+                      </li>
+                    </ul>
+                  </div>-->
+                </div>
+              </div>
+              <div *ngIf="errorMessage" class="error-message">
+                  *{{ 'login.wrong_data' | translate:locale.language }}
+                </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">{{ 'login.submit' | translate:locale.language }}</button>
+              </div>
+            </form>
+          </div>
+          <div class="bottom text-center col">
+            {{ 'login.register.question' | translate:locale.language }} ? <a href="register"><b>{{ 'login.register.action' | translate:locale.language }}</b></a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
