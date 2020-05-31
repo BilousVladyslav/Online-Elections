@@ -3,5 +3,5 @@ export class UserProfileModel {
   email: string
   first_name: string
   last_name: string
-  is_organizer: boolean
+  role: boolean
 }

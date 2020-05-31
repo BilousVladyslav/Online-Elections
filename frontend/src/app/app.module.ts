@@ -8,6 +8,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 
@@ -18,6 +20,7 @@ import {
   L10nIntlModule
 } from "angular-l10n";
 import { l10nConfig, initL10n } from "./l10n-config";
+import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './modules/navbar/navbar.component';
@@ -25,6 +28,7 @@ import { FooterComponent } from './modules/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './modules/navbar/login/login.component';
 import { RegistrationComponent } from './modules/registration/registration.component';
+import { ProfileComponent } from './modules/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,8 @@ import { RegistrationComponent } from './modules/registration/registration.compo
     NavbarComponent,
     FooterComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +53,8 @@ import { RegistrationComponent } from './modules/registration/registration.compo
     MatInputModule,
     MatButtonToggleModule,
     MatButtonModule,
+    MatTabsModule,
+    MatSlideToggleModule
 
   ],
   providers: [
@@ -56,7 +63,8 @@ import { RegistrationComponent } from './modules/registration/registration.compo
       useFactory: initL10n,
       deps: [L10nLoader],
       multi: true
-    }
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

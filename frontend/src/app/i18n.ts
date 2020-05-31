@@ -27,7 +27,10 @@ export const i18nAsset = {
       },
       wrong_data: "Wrong data"
     },
-    navbar: {},
+    navbar: {
+      logout: "Log out",
+      profile: "Profile"
+    },
     register: {
       title: "New user registration",
       subtitle: "Enter your personal data",
@@ -64,6 +67,26 @@ export const i18nAsset = {
         regex: "Last name must consists of uppercase and lowercase Latin letters"
       },
       submit: "Submit"
+    },
+    profile: {
+      title: "Personal information",
+      email: "E-mail",
+      username: "Username",
+      first_name: {
+        placeholder: "First name",
+        required: "First name is a required",
+        max_length: "First name requires maximum 50 symbols",
+        regex: "First name must consists of uppercase and lowercase Latin letters"
+      },
+      last_name: {
+        placeholder: "Last name",
+        required: "Last name is a required",
+        max_length: "Last name requires maximum 50 symbols",
+        regex: "Last name must consists of uppercase and lowercase Latin letters"
+      },
+      organizer: "You are organizer of votings",
+      not_organizer: "You can not organize votings",
+      save: "Save changes"
     }
   },
   "uk-UA": {
@@ -131,6 +154,29 @@ export const i18nAsset = {
       },
       submit: "Підтвердити"
     },
-    navbar: {}
+    navbar: {
+      logout: "Вийти",
+      profile: "Профіль"
+    },
+    profile: {
+      title: "Персональна інформація",
+      email: "Пошта",
+      username: "Логін",
+      first_name: {
+        placeholder: "Ім'я",
+        required: "Ім'я обов'язкове",
+        max_length: "Ім'я може складати максимум 50 букв",
+        regex: "Ім'я має складати великі та малі латинські букви"
+      },
+      last_name: {
+        placeholder: "Фамілія",
+        required: "Фамілія обов'язкова",
+        max_length: "Фамілія може складати максимум 50 букв",
+        regex: "Фамілія має складати великі та малі латинські букви"
+      },
+      organizer: "Ви маєте змогу організовувати голосування",
+      not_organizer: "Ви не можете організовувати голосування",
+      save: "Зберегти зміни"
+    }
   }
 };

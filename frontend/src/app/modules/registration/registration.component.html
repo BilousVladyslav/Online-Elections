@@ -1,6 +1,6 @@
 <div class="bg-white p-5">
   <h3 class="text-center p-4 m-0" style="font-weight: 500">{{ 'register.title' | translate:locale.language }}</h3>
-  <h4 class="p-2" style="font-weight: 500">{{ 'register.subtitle' | translate:locale.language }}</h4>
+  <h4 class="p-2" style="font-weight: 500">{{ 'register.subtitle' | translate:locale.language }}:</h4>
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-user-container">
     <mat-form-field class="form-group">
       <input matInput formControlName="username" placeholder="{{ 'register.username.placeholder' | translate:locale.language }}">
@@ -71,9 +71,13 @@
         </mat-error>
       </mat-error>
     </mat-form-field>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{errorMessage}}
+    </div>
+
     <div>
       <button mat-button>{{ 'register.submit' | translate:locale.language }}</button>
     </div>
   </form>
-
 </div>

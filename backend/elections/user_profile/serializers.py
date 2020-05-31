@@ -4,11 +4,11 @@ from rest_framework.validators import UniqueValidator
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
-    is_organizer = serializers.SlugRelatedField(read_only=True, slug_field='is_organizer')
+    role = serializers.SlugRelatedField(read_only=True, slug_field='is_organizer')
 
     class Meta:
         model = get_user_model()
-        fields = ['email', 'username', 'is_organizer', 'first_name', 'last_name']
+        fields = ['email', 'username', 'role', 'first_name', 'last_name']
         read_only_fields = ['email', 'username', 'role']
 
 

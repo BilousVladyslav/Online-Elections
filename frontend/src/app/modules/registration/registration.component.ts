@@ -24,6 +24,7 @@ export class RegistrationComponent implements OnInit {
   registerForm: FormGroup;
   private subscription: Subscription;
   errorMessage: string = null;
+  isLogged: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -32,7 +33,12 @@ export class RegistrationComponent implements OnInit {
     private router: Router,
     @Inject(L10N_LOCALE) public locale: L10nLocale
 
-  ) { }
+  ) {
+    authorizationService.isLoggedIn.subscribe(x => this.isLogged = x);
+    if (this.isLogged) {
+      this.router.navigate(["/"])
+    }
+  }
 
   ngOnInit(): void {
     this.createForm();

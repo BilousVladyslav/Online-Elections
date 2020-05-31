@@ -35,7 +35,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ) {
     autorizationService.isLoggedIn.subscribe(x => this.isLogged = x);
     this.isOrganizer();
-    console.log(this.is_organizer);
   }
 
   ngOnInit() {
@@ -51,7 +50,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   logOut() {
     this.autorizationService.logout();
     this.is_organizer = false;
-    console.log(this.is_organizer);
     this.router.navigate(['/']);
   }
 
