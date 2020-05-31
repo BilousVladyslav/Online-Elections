@@ -19,12 +19,6 @@ export const i18nAsset = {
       password: {
         title: "Password",
         required: "Password is a required",
-        regex: {
-          title: "Password must have",
-          letters: "uppercase and lowercase Latin letters",
-          digits: "digit",
-          character: "character"
-        }
       },
       submit: "Sign in",
       register: {
@@ -33,7 +27,44 @@ export const i18nAsset = {
       },
       wrong_data: "Wrong data"
     },
-    navbar: {}
+    navbar: {},
+    register: {
+      title: "New user registration",
+      subtitle: "Enter your personal data",
+      email: {
+        placeholder: "Enter your e-mail",
+        required: "Email is",
+        strong: "required"
+      },
+      username: {
+        placeholder: "Username",
+        required: "Login is a required"
+      },
+      password: {
+        placeholder: "Password",
+        required: "Password is a required",
+        min_length: "Password must be a minimum of 6 characters",
+        regex: "Password must have uppercase and lowercase Latin letters, digit and character"
+      },
+      password_confirm: {
+        placeholder: "Confirm the password",
+        required: "Password confirming is a required",
+        must_match: "Passwords doesn't mutch"
+      },
+      first_name: {
+        placeholder: "First name",
+        required: "First name is a required",
+        max_length: "First name requires maximum 50 symbols",
+        regex: "First name must consists of uppercase and lowercase Latin letters"
+      },
+      last_name: {
+        placeholder: "Last name",
+        required: "Last name is a required",
+        max_length: "Last name requires maximum 50 symbols",
+        regex: "Last name must consists of uppercase and lowercase Latin letters"
+      },
+      submit: "Submit"
+    }
   },
   "uk-UA": {
     changeLocale: "Змінити мову",
@@ -55,12 +86,6 @@ export const i18nAsset = {
       password: {
         title: "Пароль",
         required: "Введіть пароль",
-        regex: {
-          title: "Пароль має містити",
-          letters: "букви верхнього та нижніх регістрів",
-          digits: "цифру",
-          character: "символ"
-        }
       },
       submit: "Увійти",
       register: {
@@ -68,6 +93,43 @@ export const i18nAsset = {
         action: "Зареєструватися"
       },
       wrong_data: "Невірні дані"
+    },
+    register: {
+      title: "Реєстрація нового користувача",
+      subtitle: "Введіть ваші дані",
+      email: {
+        placeholder: "Введіть вашу пошту",
+        required: "Електронна пошта",
+        strong: "обов'язкова"
+      },
+      username: {
+        placeholder: "Логін",
+        required: "Логін обов'язковий"
+      },
+      password: {
+        placeholder: "Пароль",
+        required: "Пароль обов'язковий",
+        min_length: "Пароль має складати мінімум 6 символів",
+        regex: "Пароль має містити букви верхнього та нижнього регістрів, цифри та символи"
+      },
+      password_confirm: {
+        placeholder: "Підтвердіть пароль",
+        required: "Підтвердження паролю обов'язкове",
+        must_match: "Паролі не співпадають"
+      },
+      first_name: {
+        placeholder: "Ім'я",
+        required: "Ім'я обов'язкове",
+        max_length: "Ім'я може складати максимум 50 букв",
+        regex: "Ім'я має складати великі та малі латинські букви"
+      },
+      last_name: {
+        placeholder: "Фамілія",
+        required: "Фамілія обов'язкова",
+        max_length: "Фамілія може складати максимум 50 букв",
+        regex: "Фамілія має складати великі та малі латинські букви"
+      },
+      submit: "Підтвердити"
     },
     navbar: {}
   }

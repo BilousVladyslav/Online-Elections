@@ -20,12 +20,11 @@
     </li>-->
 
     </ul>
-    <mat-form-field class="nav navbar-nav ml-auto" style="width: 120px">
-      <mat-label style="color: white">{{ 'changeLocale' | translate:locale.language }}</mat-label>
-      <mat-select [(value)]="selectedLanguage" style="color: white">
-        <mat-option [value]="item.locale" (click)="setLocale(item.locale)" *ngFor="let item of schema">{{ item.text }}</mat-option>
-      </mat-select>
-    </mat-form-field>
+
+    <mat-button-toggle-group class="ml-auto"  name="language" aria-label="Font Style" [(value)]="selectedLanguage">
+      <mat-button-toggle [value]="item.locale" (click)="setLocale(item.locale)" *ngFor="let item of schema">{{ item.text }}</mat-button-toggle>
+    </mat-button-toggle-group>
+    
     <ul class="nav navbar-nav" style="width: 120px">
       <li *ngIf="isLogged" class="mx-auto">
         <a (click)="logOut()" class="nav-link"><b>Logout</b></a>
