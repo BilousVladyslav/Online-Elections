@@ -15,12 +15,37 @@ class VotesSerializer(serializers.ModelSerializer):
         fields = ['id', 'voting_title', 'voting_description', 'date_started', 'date_finished', 'organizer', 'questions']
 
 
+class InactiveVotesSerializer(serializers.ModelSerializer):
+    organizer = serializers.SlugRelatedField(read_only=True, slug_field='email')
+
+    class Meta:
+        model = Voting
+        fields = ['id', 'voting_title', 'voting_description', 'date_started', 'date_finished', 'organizer']
+
+
+class ChoiceSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Choice
+        fields = ['id', 'choice_text']
+
+
+class QuestionSerializer(serializers.ModelSerializer):
+    choices = ChoiceSerializer(many=True, read_only=True)
+    vote = serializers.SlugRelatedField(read_only=True, slug_field='id')
+
+    class Meta:
+        model = Question
+        fields = ['id', 'question_text', 'max_answers', 'choices', 'vote']
+
+
 class VotingSerializer(serializers.Serializer):
     questions = serializers.DictField(child=serializers.ListField(child=serializers.IntegerField()),
                                       write_only=True,
                                       required=True)
     already_voted = serializers.BooleanField(read_only=True, default=False)
     voting_date = serializers.DateTimeField(allow_null=True, read_only=True)
+
 
     def validate_questions(self, value):
         queryset = Voter.objects.filter(voting=self.context['voting'])

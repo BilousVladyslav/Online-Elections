@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 
 from votings_constructor.models import Voting, Question, Choice, Voter
-from .serializers import VotingSerializer, VotesSerializer, QuestionResultSerializer
+from .serializers import VotingSerializer, VotesSerializer, QuestionResultSerializer, InactiveVotesSerializer
 from .utils import get_questions
 
 
@@ -20,7 +20,9 @@ class VotesViewSet(ReadOnlyModelViewSet):
     lookup_url_kwarg = 'vote_pk'
 
     def get_queryset(self):
-        return Voting.objects.filter(voters__user=self.request.user)
+        return Voting.objects.filter(voters__user=self.request.user,
+                                     date_started__lt=timezone.now(),
+                                     date_finished__gt=timezone.now())
 
 
 class VoteSubmitAPIView(ViewSet):
@@ -54,6 +56,30 @@ class VoteSubmitAPIView(ViewSet):
         return Response(serializer.data)
 
 
+class FinishedVotesAPIView(ReadOnlyModelViewSet):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [BasicAuthentication, SessionAuthentication, TokenAuthentication]
+    serializer_class = InactiveVotesSerializer
+    lookup_field = 'id'
+    lookup_url_kwarg = 'vote_pk'
+
+    def get_queryset(self):
+        return Voting.objects.filter(voters__user=self.request.user,
+                                     date_finished__lt=timezone.now())
+
+
+class ComingVotesAPIView(ReadOnlyModelViewSet):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [BasicAuthentication, SessionAuthentication, TokenAuthentication]
+    serializer_class = InactiveVotesSerializer
+    lookup_field = 'id'
+    lookup_url_kwarg = 'vote_pk'
+
+    def get_queryset(self):
+        return Voting.objects.filter(voters__user=self.request.user,
+                                     date_started__gt=timezone.now())
+
+
 class QuestionResultsViewSet(ViewSet):
     permission_classes = [IsAuthenticated]
     authentication_classes = [BasicAuthentication, SessionAuthentication, TokenAuthentication]
@@ -63,6 +89,6 @@ class QuestionResultsViewSet(ViewSet):
     def list(self, request, voting_vote_pk=None):
         queryset = Question.objects.filter(vote__voters__user=request.user,
                                            vote__date_finished__lte=timezone.now(),
-                                           vote__pk=voting_vote_pk)
+                                           vote__id=voting_vote_pk)
         serializer = QuestionResultSerializer(queryset, many=True)
         return Response(serializer.data)
