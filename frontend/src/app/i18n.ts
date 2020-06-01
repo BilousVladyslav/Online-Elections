@@ -29,7 +29,9 @@ export const i18nAsset = {
     },
     navbar: {
       logout: "Log out",
-      profile: "Profile"
+      profile: "Profile",
+      votings: "Votings",
+      constructor: "Constructor"
     },
     register: {
       title: "New user registration",
@@ -87,6 +89,12 @@ export const i18nAsset = {
       organizer: "You are organizer of votings",
       not_organizer: "You can not organize votings",
       save: "Save changes"
+    },
+    votings: {
+
+    },
+    constructor: {
+
     }
   },
   "uk-UA": {
@@ -156,7 +164,9 @@ export const i18nAsset = {
     },
     navbar: {
       logout: "Вийти",
-      profile: "Профіль"
+      profile: "Профіль",
+      votings: "Голосування",
+      constructor: "Конструктор"
     },
     profile: {
       title: "Персональна інформація",
@@ -177,6 +187,12 @@ export const i18nAsset = {
       organizer: "Ви маєте змогу організовувати голосування",
       not_organizer: "Ви не можете організовувати голосування",
       save: "Зберегти зміни"
+    },
+    votings: {
+
+    },
+    constructor: {
+
     }
   }
 };

@@ -10,6 +10,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatChipsModule } from '@angular/material/chips';
 
 
 
@@ -29,6 +30,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './modules/navbar/login/login.component';
 import { RegistrationComponent } from './modules/registration/registration.component';
 import { ProfileComponent } from './modules/profile/profile.component';
+import { VotingsComponent } from './modules/votings/votings.component';
+import { ConstructorComponent } from './modules/constructor/constructor.component';
+import { ConstructorListComponent } from './modules/constructor/constructor-list/constructor-list.component';
+import { ConstructorEditorComponent } from './modules/constructor/constructor-editor/constructor-editor.component';
+import { VotingsListComponent } from './modules/votings/votings-list/votings-list.component';
+import { VotingsPageComponent } from './modules/votings/votings-page/votings-page.component';
+import { VotingsProcessComponent } from './modules/votings/votings-process/votings-process.component';
+import { VotingsResultsComponent } from './modules/votings/votings-results/votings-results.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +46,15 @@ import { ProfileComponent } from './modules/profile/profile.component';
     FooterComponent,
     LoginComponent,
     RegistrationComponent,
-    ProfileComponent
+    ProfileComponent,
+    VotingsComponent,
+    ConstructorComponent,
+    ConstructorListComponent,
+    ConstructorEditorComponent,
+    VotingsListComponent,
+    VotingsPageComponent,
+    VotingsProcessComponent,
+    VotingsResultsComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +71,9 @@ import { ProfileComponent } from './modules/profile/profile.component';
     MatButtonToggleModule,
     MatButtonModule,
     MatTabsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatChipsModule,
+
 
   ],
   providers: [

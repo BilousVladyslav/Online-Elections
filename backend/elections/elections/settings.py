@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'user_profile',
     'votings_constructor',
-    'votings'
+    'votings',
 
 ]
 
