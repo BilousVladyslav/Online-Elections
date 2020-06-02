@@ -8,7 +8,7 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 
 from votings_constructor.models import Voting, Question, Choice, Voter
 from .serializers import VotingSerializer, VotesSerializer, QuestionResultSerializer, InactiveVotesSerializer
-from .utils import get_questions
+from .utils import get_questions, get_questions_out
 
 
 class VotesViewSet(ReadOnlyModelViewSet):
@@ -44,7 +44,7 @@ class VoteSubmitAPIView(ViewSet):
         }
         if not voter.is_already_voted:
             data.update({
-                'questions': get_questions(voting)
+                'questions': get_questions_out(voting)
             })
         return Response(data)
 

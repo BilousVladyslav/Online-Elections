@@ -7,8 +7,8 @@ from .views import VoteSubmitAPIView, VotesViewSet, QuestionResultsViewSet, Fini
 votings_router = DefaultRouter()
 votings_router.register(r'api/votings/active', VotesViewSet, basename='voting')
 
-finished_votings_router = DefaultRouter()
-finished_votings_router.register(r'api/votings/coming', ComingVotesAPIView, basename='voting')
+coming_votings_router = DefaultRouter()
+coming_votings_router.register(r'api/votings/coming', ComingVotesAPIView, basename='voting')
 
 finished_votings_router = DefaultRouter()
 finished_votings_router.register(r'api/votings/finished', FinishedVotesAPIView, basename='voting')
@@ -23,6 +23,7 @@ voting_results_router.register(r'results', QuestionResultsViewSet, basename='res
 voting_urlpatterns = [
     url(r'^', include(votings_router.urls)),
     url(r'^', include(finished_votings_router.urls)),
+    url(r'^', include(coming_votings_router.urls)),
     url(r'^', include(vote_submit_router.urls)),
     url(r'^', include(voting_results_router.urls)),
 ]

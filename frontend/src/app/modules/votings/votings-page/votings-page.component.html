@@ -1,1 +1,21 @@
-<p>votings-page works!</p>
+<div class="main bg-light p-3">
+    <div class="container py-3" style="height: max-content; margin-left: 0%">
+      <div class="card rounded-lg p-1 shadw" style="height: max-content;">
+        <div class="row d-inline-block">
+          <h3>{{ voting.voting_title }}</h3>
+          <h4>{{ voting.voting_description }}</h4>
+          <h5>{{ voting.id }}</h5>
+          <h5>{{ voting.date_started }}</h5>
+          <h5>{{ voting.date_finished }}</h5>
+          <h5>{{ voting.organizer }}</h5>
+          <h5>{{ voting.questions }}</h5>
+        </div>
+        <div *ngIf=" voting_info && voting_info.already_voted">
+          <h3> You have successfully voted! Wait for results.</h3>
+        </div>
+        <div *ngIf="voting_info && !voting_info.already_voted">
+          <votings-process [questions]="voting_info.questions"></votings-process>
+        </div>
+      </div>
+    </div>
+</div>

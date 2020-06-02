@@ -1,0 +1,13 @@
+.shadw {
+  transition: .5s;
+}
+
+  .shadw:hover {
+    transition: .3s;
+    box-shadow: 0 0 12px rgba(0,0,0,0.5);
+  }
+
+.main {
+  display: block;
+  //width: max-content;
+}

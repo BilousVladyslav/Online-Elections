@@ -24,7 +24,7 @@ export class VotingService {
 
   GetConcreteActiveVotings(voting_id: number): Observable<VotingListModel> {
     return this.http
-      .get<VotingListModel>(this.controllerUrl + 'active/' + voting_id.toString());
+      .get<VotingListModel>(this.controllerUrl + 'active/' + voting_id.toString() + '/');
   }
 
   GetComingVotings(): Observable<OtherVotingModel[]> {
@@ -49,12 +49,12 @@ export class VotingService {
 
   GetVotingSubmiting(voting_id: number): Observable<SubmitVotingModel> {
     return this.http
-      .get<SubmitVotingModel>(this.controllerUrl + voting_id.toString() + 'active/vote/');
+      .get<SubmitVotingModel>(this.controllerUrl + 'active/' + voting_id.toString() + '/vote/');
   }
 
   SubmitVoting(voting_result: SubmitVotingModel, voting_id: number): Observable<SubmitVotingModel> {
     return this.http
-      .post<SubmitVotingModel>(this.controllerUrl + voting_id.toString() + 'active/vote/', voting_result);
+      .post<SubmitVotingModel>(this.controllerUrl + 'active/' + voting_id.toString() + '/vote/', voting_result);
   }
 
   GetVotingResults(voting_id: number): Observable<VotingResultModel[]> {

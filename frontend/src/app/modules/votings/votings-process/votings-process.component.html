@@ -1,1 +1,5 @@
-<p>votings-process works!</p>
+<div class="row" *ngFor="let question of questions">
+  <div class="row">{{question.question_text}}</div>
+  <div class="row">{{question.max_answers}}</div>
+  <p *ngFor="let choice of question.choices"> {{choice.choice_text}}</p>
+</div>

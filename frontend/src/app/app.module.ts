@@ -35,7 +35,7 @@ import { ConstructorComponent } from './modules/constructor/constructor.componen
 import { ConstructorListComponent } from './modules/constructor/constructor-list/constructor-list.component';
 import { ConstructorEditorComponent } from './modules/constructor/constructor-editor/constructor-editor.component';
 import { VotingsListComponent } from './modules/votings/votings-list/votings-list.component';
-import { VotingsPageComponent } from './modules/votings/votings-page/votings-page.component';
+import { ActiveVotingPageComponent } from './modules/votings/votings-page/votings-page.component';
 import { VotingsProcessComponent } from './modules/votings/votings-process/votings-process.component';
 import { VotingsResultsComponent } from './modules/votings/votings-results/votings-results.component';
 
@@ -52,7 +52,7 @@ import { VotingsResultsComponent } from './modules/votings/votings-results/votin
     ConstructorListComponent,
     ConstructorEditorComponent,
     VotingsListComponent,
-    VotingsPageComponent,
+    ActiveVotingPageComponent,
     VotingsProcessComponent,
     VotingsResultsComponent
   ],

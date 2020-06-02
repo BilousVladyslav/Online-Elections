@@ -2,14 +2,17 @@
 
   <mat-tab label="Active votings">
     <section class="container  py-3">
+      <app-votings-list [list]="active_votings"></app-votings-list>
     </section>
   </mat-tab>
   <mat-tab label="Coming votings">
     <section class="container  py-3">
+      <app-votings-list [list]="coming_votings"></app-votings-list>
     </section>
   </mat-tab>
   <mat-tab label="Finished votings">
     <section class="container  py-3">
+      <app-votings-list [list]="finished_votings"></app-votings-list>
     </section>
   </mat-tab>
 </mat-tab-group>

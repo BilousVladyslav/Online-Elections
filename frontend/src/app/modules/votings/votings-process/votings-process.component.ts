@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-votings-process',
+  selector: 'votings-process',
   templateUrl: './votings-process.component.html',
   styleUrls: ['./votings-process.component.css']
 })
 export class VotingsProcessComponent implements OnInit {
+  @Input() questions: [] = [];
 
   constructor() { }
 
