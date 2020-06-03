@@ -3,9 +3,10 @@ import { environment } from "../../../environments/environment";
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from "rxjs";
 import { VotingListModel } from "../../shared/models/voting/voting-list.model";
-import { SubmitVotingModel } from "../../shared/models/voting/voting-active.model";
+import { ActiveVotingInfoModel } from "../../shared/models/voting/voting-active.model";
 import { OtherVotingModel } from "../../shared/models/voting/voting-other.model";
 import { VotingResultModel } from "../../shared/models/voting/voting-results.model";
+import { VotingSubmitModel, QuestionSubmitModel } from "src/app/shared/models/voting/question-submit.model";
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class VotingService {
 
   GetConcreteComingVoting(voting_id: number): Observable<OtherVotingModel> {
     return this.http
-      .get<OtherVotingModel>(this.controllerUrl + 'coming/' + voting_id.toString());
+      .get<OtherVotingModel>(this.controllerUrl + 'coming/' + voting_id.toString() + '/');
   }
 
   GetFinishedVotings(): Observable<OtherVotingModel[]> {
@@ -42,23 +43,23 @@ export class VotingService {
       .get<OtherVotingModel[]>(this.controllerUrl + 'finished/');
   }
 
-  GetFinishedComingVoting(voting_id: number): Observable<OtherVotingModel> {
+  GetConcreteFinishedVoting(voting_id: number): Observable<OtherVotingModel> {
     return this.http
-      .get<OtherVotingModel>(this.controllerUrl + 'finished/' + voting_id.toString());
+      .get<OtherVotingModel>(this.controllerUrl + 'finished/' + voting_id.toString() + '/');
   }
 
-  GetVotingSubmiting(voting_id: number): Observable<SubmitVotingModel> {
+  GetVotingSubmiting(voting_id: number): Observable<ActiveVotingInfoModel> {
     return this.http
-      .get<SubmitVotingModel>(this.controllerUrl + 'active/' + voting_id.toString() + '/vote/');
+      .get<ActiveVotingInfoModel>(this.controllerUrl + 'active/' + voting_id.toString() + '/vote/');
   }
 
-  SubmitVoting(voting_result: SubmitVotingModel, voting_id: number): Observable<SubmitVotingModel> {
+  SubmitVoting(voting_result: VotingSubmitModel, voting_id: number): Observable<ActiveVotingInfoModel> {
     return this.http
-      .post<SubmitVotingModel>(this.controllerUrl + 'active/' + voting_id.toString() + '/vote/', voting_result);
+      .post<ActiveVotingInfoModel>(this.controllerUrl + 'active/' + voting_id.toString() + '/vote/', voting_result);
   }
 
   GetVotingResults(voting_id: number): Observable<VotingResultModel[]> {
     return this.http
-      .get<VotingResultModel[]>(this.controllerUrl + voting_id.toString() + 'active/results/');
+      .get<VotingResultModel[]>(this.controllerUrl + 'active/' + voting_id.toString() + '/results/');
   }
 }

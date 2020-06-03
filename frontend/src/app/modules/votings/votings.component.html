@@ -1,18 +1,18 @@
 <mat-tab-group class="container bg-white">
 
-  <mat-tab label="Active votings">
+  <mat-tab label="{{ 'votings.active_title' | translate:locale.language }}">
     <section class="container  py-3">
-      <app-votings-list [list]="active_votings"></app-votings-list>
+      <app-votings-list [list]="active_votings" [postfix]="'active'"></app-votings-list>
     </section>
   </mat-tab>
-  <mat-tab label="Coming votings">
+  <mat-tab label="{{ 'votings.coming_title' | translate:locale.language }}">
     <section class="container  py-3">
-      <app-votings-list [list]="coming_votings"></app-votings-list>
+      <app-votings-list [list]="coming_votings" [postfix]="'coming'"></app-votings-list>
     </section>
   </mat-tab>
-  <mat-tab label="Finished votings">
+  <mat-tab label="{{ 'votings.finished_title' | translate:locale.language }}">
     <section class="container  py-3">
-      <app-votings-list [list]="finished_votings"></app-votings-list>
+      <app-votings-list [list]="finished_votings" [postfix]="'finished'"></app-votings-list>
     </section>
   </mat-tab>
 </mat-tab-group>

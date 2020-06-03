@@ -1,5 +1,11 @@
-<div class="row" *ngFor="let question of questions">
+<div class="d-inline-block">
   <div class="row">{{question.question_text}}</div>
-  <div class="row">{{question.max_answers}}</div>
-  <p *ngFor="let choice of question.choices"> {{choice.choice_text}}</p>
+  <div class="row">Max answers: {{question.max_answers}}</div>
+  <ul>
+    <li *ngFor="let choice of question.choices">
+      <mat-checkbox>{{choice.choice_text}}</mat-checkbox>
+    </li>
+  </ul>
 </div>
+
+

@@ -39,13 +39,15 @@ class QuestionSerializer(serializers.ModelSerializer):
         fields = ['id', 'question_text', 'max_answers', 'choices', 'vote']
 
 
+class AnswerSerializer(serializers.Serializer):
+    id = serializers.IntegerField(required=True)
+    choices = serializers.ListField(child=serializers.IntegerField(), required=True)
+
+
 class VotingSerializer(serializers.Serializer):
-    questions = serializers.DictField(child=serializers.ListField(child=serializers.IntegerField()),
-                                      write_only=True,
-                                      required=True)
+    questions = AnswerSerializer(write_only=True, required=True, many=True)
     already_voted = serializers.BooleanField(read_only=True, default=False)
     voting_date = serializers.DateTimeField(allow_null=True, read_only=True)
-
 
     def validate_questions(self, value):
         queryset = Voter.objects.filter(voting=self.context['voting'])
@@ -54,27 +56,28 @@ class VotingSerializer(serializers.Serializer):
             raise serializers.ValidationError('User already voted!')
 
         all_questions = get_questions(self.context['voting'])
-        for question, choices in value.items():
-            if question in all_questions.keys():
-                if len(choices) > all_questions[question]['max_answers']:
-                    raise serializers.ValidationError(f"Too many answers for this question (id: {question}).")
+        for question in value:
+            if str(question['id']) in all_questions.keys():
+                if len(question['choices']) > all_questions[str(question['id'])]['max_answers']:
+                    raise serializers.ValidationError(f"Too many answers for this question (id: {question['id']}).")
 
-                for choice in choices:
-                    if choice not in all_questions[question]['choices']:
+                for choice in question['choices']:
+                    if choice not in all_questions[str(question['id'])]['choices']:
                         raise serializers.ValidationError(f"Choice (id: {choice}) does not exist for this voting.")
             else:
-                raise serializers.ValidationError(f"Question (id: {question}) does not exist for this voting.")
+                raise serializers.ValidationError(f"Question (id: {question['id']}) does not exist for this voting.")
 
         return value
 
     def save(self, raise_exception=False):
         voter = Voter.objects.get(user=self.context['request'].user, voting=self.context['voting'])
 
-        choices_id = [choice for choices in self.validated_data['questions'].values() for choice in choices]
+        choices_id = [choice for question in self.validated_data['questions'] for choice in question['choices']]
         for choice_id in choices_id:
             Choice.objects.get(id=choice_id).vote()
-        voter.vote()
-        self.validated_data['already_voted'] = voter.is_already_voted
+        print('SUCCESSFULLY VOTED')
+        # voter.vote()
+        # self.validated_data['already_voted'] = voter.is_already_voted
         self.validated_data['voting_date'] = voter.voting_date
 
 

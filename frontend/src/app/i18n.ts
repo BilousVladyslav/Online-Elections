@@ -91,7 +91,29 @@ export const i18nAsset = {
       save: "Save changes"
     },
     votings: {
-
+      active_title: "Active votings",
+      coming_title: "Coming votings",
+      finished_title: "Finished votings",
+      button: "View",
+      dialog: {
+        title: "Are you sure",
+        description: "Your choices can not be changed",
+        cancel: "Cancel",
+        continue: "Continue"
+      },
+      page: {
+        description: "Description",
+        date_start: "Date when started",
+        date_finish: "Date when finished",
+        organizer: "Organizer email",
+        max_answers: "Max answers",
+        error_1: "Too many answers! Must be",
+        error_2: "or less",
+        button: "Send your result",
+        successed: "You have successfully voted! Wait for results",
+        results: "Voting has ended. You can see the results bellow",
+        coming: "Coming soon..."
+      }
     },
     constructor: {
 
@@ -189,7 +211,29 @@ export const i18nAsset = {
       save: "Зберегти зміни"
     },
     votings: {
-
+      active_title: "Активні голосування",
+      coming_title: "Наступаючі голосування",
+      finished_title: "Завершені голосування",
+      button: "Переглянути",
+      dialog: {
+        title: "Ви впевнені",
+        description: "Ваш вибір буде неможливо змінити",
+        cancel: "Відмінити",
+        continue: "Продовжити"
+      },
+      page: {
+        description: "Опис",
+        date_start: "Дата початку",
+        date_finish: "Дата завершення",
+        organizer: "Пошта організатора",
+        max_answers: "Максимальна кількість відповідей",
+        error_1: "Забагато відповідей! Має бути",
+        error_2: "та менше",
+        button: "Відправити результат",
+        successed: "Ви успішно проголосували! Чекайте результатів",
+        results: "Голосування завершилося. Ви можете переглянути результати",
+        coming: "Голосування розпочнеться скоро..."
+      }
     },
     constructor: {
 

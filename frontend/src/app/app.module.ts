@@ -11,7 +11,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
-
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 import {
@@ -35,7 +40,7 @@ import { ConstructorComponent } from './modules/constructor/constructor.componen
 import { ConstructorListComponent } from './modules/constructor/constructor-list/constructor-list.component';
 import { ConstructorEditorComponent } from './modules/constructor/constructor-editor/constructor-editor.component';
 import { VotingsListComponent } from './modules/votings/votings-list/votings-list.component';
-import { ActiveVotingPageComponent } from './modules/votings/votings-page/votings-page.component';
+import { ActiveVotingPageComponent, SubmitDialog } from './modules/votings/votings-page/votings-page.component';
 import { VotingsProcessComponent } from './modules/votings/votings-process/votings-process.component';
 import { VotingsResultsComponent } from './modules/votings/votings-results/votings-results.component';
 
@@ -54,7 +59,8 @@ import { VotingsResultsComponent } from './modules/votings/votings-results/votin
     VotingsListComponent,
     ActiveVotingPageComponent,
     VotingsProcessComponent,
-    VotingsResultsComponent
+    VotingsResultsComponent,
+    SubmitDialog
   ],
   imports: [
     BrowserModule,
@@ -73,7 +79,12 @@ import { VotingsResultsComponent } from './modules/votings/votings-results/votin
     MatTabsModule,
     MatSlideToggleModule,
     MatChipsModule,
-
+    MatCheckboxModule,
+    MatRadioModule,
+    MatDialogModule,
+    MatCardModule,
+    MatProgressBarModule,
+    MatDividerModule,
 
   ],
   providers: [
@@ -85,6 +96,7 @@ import { VotingsResultsComponent } from './modules/votings/votings-results/votin
     },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [SubmitDialog],
 })
 export class AppModule { }

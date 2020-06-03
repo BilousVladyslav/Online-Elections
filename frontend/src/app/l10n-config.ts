@@ -23,7 +23,8 @@ export const l10nConfig: L10nConfig = {
       text: "English"
     },
     {
-      locale: { language: "uk-UA", currency: "UAH", timeZone: "Europe/Kiev" },
+      locale: {
+        language: "uk-UA", currency: "UAH", timeZone: "Europe/Kiev" },
       dir: "ltr",
       text: "Українська",
     }
