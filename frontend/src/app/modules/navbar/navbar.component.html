@@ -10,7 +10,7 @@
       <li *ngIf="isLogged" class="nav-item"><a routerLink="/profile" class="nav-link">{{ 'navbar.profile' | translate:locale.language }}</a></li>
       <li *ngIf="isLogged" class="nav-item"><a routerLink="/votings" class="nav-link">{{ 'navbar.votings' | translate:locale.language }}</a></li>
       <li *ngIf="isLogged && is_organizer" class="nav-item"><a routerLink="/constructor" class="nav-link">{{ 'navbar.constructor' | translate:locale.language }}</a></li>
-
+      <li *ngIf="isLogged && is_organizer" class="nav-item"><a routerLink="/constructor/create" class="nav-link">{{ 'navbar.create' | translate:locale.language }}</a></li>
 
     </ul>
 

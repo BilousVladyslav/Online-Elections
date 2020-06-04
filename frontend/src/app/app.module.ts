@@ -17,6 +17,15 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDividerModule } from '@angular/material/divider';
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatNativeDateModule,
+  NgxMatTimepickerModule
+} from '@angular-material-components/datetime-picker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
 
 
 import {
@@ -85,6 +94,13 @@ import { VotingsResultsComponent } from './modules/votings/votings-results/votin
     MatCardModule,
     MatProgressBarModule,
     MatDividerModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
+    MatDatepickerModule,
+    MatExpansionModule,
+    MatListModule,
+    MatIconModule,
 
   ],
   providers: [

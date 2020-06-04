@@ -31,7 +31,8 @@ export const i18nAsset = {
       logout: "Log out",
       profile: "Profile",
       votings: "Votings",
-      constructor: "Constructor"
+      constructor: "Constructor",
+      create: "Create"
     },
     register: {
       title: "New user registration",
@@ -116,7 +117,52 @@ export const i18nAsset = {
       }
     },
     constructor: {
-
+      edits_title: "Editable votings",
+      edit_button: "Edit",
+      create: {
+        title: 'Creating the new voting',
+        subtitle: 'Enter all data about voting',
+        voting: {
+          title: "Voting title",
+          title_required: "Title is a required",
+          description: "Description",
+          description_required: "Description is a required",
+          date_start: "Choose a date when voting started",
+          date_start_required: "Voting start date is a required",
+          date_finish: "Choose a date when voting finished",
+          date_finish_required: "Voting finish date is a required",
+        },
+        voters: {
+          title: "Voters",
+          subtitle: "List of emails all of voters",
+          button_add: "Add voter",
+          email: {
+            placeholder: "Email",
+            required: "Email is a required",
+            pattern: 'Invalid email',
+            delete: "Delete voter"
+          }
+        },
+        question: {
+          title: "Question title",
+          title_required: "Question title is a required",
+          max_answers: {
+            placeholder: "Max answers count",
+            required: "This field is a required",
+            min: "Minimal value is 1",
+            pattern: "Must be a number"
+          },
+          choice: {
+            placeholder: "Answer text",
+            required: "Answer text is a required",
+            delete: "Delete answer",
+            add: 'Add answer'
+          },
+          delete: "Delete question",
+          add: "Create question"
+        },
+        save: "Save"
+      }
     }
   },
   "uk-UA": {
@@ -188,7 +234,8 @@ export const i18nAsset = {
       logout: "Вийти",
       profile: "Профіль",
       votings: "Голосування",
-      constructor: "Конструктор"
+      constructor: "Конструктор",
+      create: "Створити"
     },
     profile: {
       title: "Персональна інформація",
@@ -236,7 +283,52 @@ export const i18nAsset = {
       }
     },
     constructor: {
-
+      edits_title: "Голосування доступні до редагування",
+      edit_button: "Редагувати",
+      create: {
+        title: 'Створення нового голосування',
+        subtitle: 'Введіть усі дані голосування',
+        voting: {
+          title: "Заголовок голосування",
+          title_required: "Заголовок обов'язковий",
+          description: "Опис",
+          description_required: "Опис обов'язковий",
+          date_start: "Оберіть дату початку голосування",
+          date_start_required: "Дата початку обов'язкова",
+          date_finish: "Оберіть дату завершення голосування",
+          date_finish_required: "Дата завершення обов'язкова",
+        },
+        voters: {
+          title: "Виборці",
+          subtitle: "Список електронних пошт виборців",
+          button_add: "Додати виборця",
+          email: {
+            placeholder: "Пошта",
+            required: "Пошта обов'язкова",
+            pattern: 'Неправильна пошта',
+            delete: "Видалити виборця"
+          }
+        },
+        question: {
+          title: "Заголовок питання",
+          title_required: "Заголовок питання обов'язковий",
+          max_answers: {
+            placeholder: "Максимальна кількість відповідей",
+            required: "Це поле обов'язкове",
+            min: "Мінімальне значення дорівнює 1",
+            pattern: "Має бути числом"
+          },
+          choice: {
+            placeholder: "Текст відповіді",
+            required: "Текст відповіді обов'язковий",
+            delete: "Видалити відповідь",
+            add: "Додати варінт відповіді"
+          },
+          delete: "Видалити питання",
+          add: 'Створити питання'
+        },
+        save: "Зберегти"
+      }
     }
   }
 };

@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subscription } from "rxjs";
+import { Subscription } from "rxjs";
 import { VotingService } from "../../core/services/voting.service";
-import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
 import { AuthorizationService } from 'src/app/core/services/authorization.service';
 import { VotingListModel } from "../../shared/models/voting/voting-list.model";
 import { OtherVotingModel } from "../../shared/models/voting/voting-other.model";

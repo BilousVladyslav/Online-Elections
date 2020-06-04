@@ -36,9 +36,12 @@ class CustomCreateModelMixin:
         parent_obj = get_object_or_404(parent_obj_queryset, pk=pk)
 
         serializer = self.serializer_class(data=request.data, context={self.parent_model_name: parent_obj})
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            print(serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CustomUpdateModelMixin:
@@ -46,9 +49,12 @@ class CustomUpdateModelMixin:
     def update_model(self, request, pk, **kwargs):
         model_obj = self.get_object(pk, **kwargs)
         serializer = self.serializer_class(model_obj, data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            print(serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CustomDestroyModelMixin:

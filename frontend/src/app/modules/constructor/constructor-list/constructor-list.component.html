@@ -1,1 +1,19 @@
-<p>constructor-list works!</p>
+<div class="main bg-light p-3">
+  <section *ngFor="let item of list">
+    <div class="container" style="height: max-content; margin-left: 0%">
+      <div class="card rounded-lg m-0 shadw" style="height: max-content;">
+
+        <div class="col-sm-9 pl-0">
+          <div class="card-block px-3 pt-2">
+            <h5 class="text-dark">{{item.voting_title }}</h5>
+            <p class="card-text pl-2">
+              {{item.voting_description}}
+            </p>
+            <a class="btn btn-dark m-2" [routerLink]="['/constructor/', item.id]"> {{ 'constructor.edit_button' | translate:locale.language }} </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</div>

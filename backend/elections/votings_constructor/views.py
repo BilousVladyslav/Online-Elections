@@ -72,14 +72,18 @@ class VoterCreatingViewSet(ViewSet, mixins.QuerysetModelMixin):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def create(self, request, voter_vote_pk=None):
+        print(request.data)
         queryset = Voting.objects.filter(organizer=self.request.user,
                                          date_started__gt=timezone.now())
         voting = get_object_or_404(queryset, pk=voter_vote_pk)
 
         serializer = VoterConstructorSerializer(data=request.data, context={'voting': voting})
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            print(serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class QuestionCreatingViewSet(ConstructorViewSet):
@@ -96,6 +100,7 @@ class QuestionCreatingViewSet(ConstructorViewSet):
                                vote__date_started__gt=timezone.now())
 
     def create(self, request, voting_vote_pk=None):
+        print(request.data)
         return self.create_model(request, voting_vote_pk,
                                  organizer=request.user,
                                  date_started__gt=timezone.now())
@@ -134,6 +139,7 @@ class ChoiceCreatingViewSet(ConstructorViewSet):
                                question__vote__date_started__gt=timezone.now())
 
     def create(self, request, voting_vote_pk=None, choice_question_pk=None):
+        print(request.data)
         return self.create_model(request, choice_question_pk,
                                  vote=voting_vote_pk,
                                  vote__organizer=request.user,
