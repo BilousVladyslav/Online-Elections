@@ -166,7 +166,7 @@ export class ConstructorEditorComponent implements OnInit {
           errors => this.errorMessage = errors.message);
       setTimeout(() => {
         this.router.navigate(['constructor'])
-      }, 1500);
+      }, 1000);
     }
   }
 
