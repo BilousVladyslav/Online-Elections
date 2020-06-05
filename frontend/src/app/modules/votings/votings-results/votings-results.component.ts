@@ -63,7 +63,7 @@ export class VotingsResultsComponent implements OnInit {
     this.subscription = this.votingService
       .GetVotingResults(this.votingId)
       .subscribe(
-        res => this.results = res,
+        res => { this.results = res; console.log(res) },
         errors => console.log(errors.message));
   }
 

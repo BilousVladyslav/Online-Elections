@@ -78,16 +78,18 @@ export class ActiveVotingPageComponent implements OnInit {
   }
 
   initVotingModel(res) {
-    this.voting = res
-    this.voting.date_started = new Date(this.voting.date_started)
-    this.voting.date_finished = new Date(this.voting.date_finished)
+    this.voting = res;
+    this.voting.date_started = new Date(this.voting.date_started);
+    this.voting.date_finished = new Date(this.voting.date_finished);
   }
 
   initResultModel(res) {
     this.voting_info = res;
-    for (var i = 0; i < this.voting_info.questions.length; i++) {
-      let question = this.voting_info.questions[i]
-      this.result.questions.push(new QuestionSubmitModel(question.question_id))
+    if (!this.voting_info.already_voted) {
+      for (var i = 0; i < this.voting_info.questions.length; i++) {
+        let question = this.voting_info.questions[i]
+        this.result.questions.push(new QuestionSubmitModel(question.question_id))
+      }
     }
   }
 

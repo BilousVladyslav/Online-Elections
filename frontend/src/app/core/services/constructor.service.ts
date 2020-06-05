@@ -103,4 +103,9 @@ export class ConstructorService {
     return this.http
       .put<ChoiceResponseModel>(this.controllerUrl + voting_id.toString() + '/questions/' + question_id.toString() + '/choices/' + choice_id.toString() + '/', choiceModel);
   }
+
+  DeleteChoice(voting_id: number, question_id: number, choice_id: number): Observable<QuestionResponseModel> {
+    return this.http
+      .delete<QuestionResponseModel>(this.controllerUrl + voting_id.toString() + '/questions/' + question_id.toString() + '/choices/' + choice_id.toString() + '/');
+  }
 }

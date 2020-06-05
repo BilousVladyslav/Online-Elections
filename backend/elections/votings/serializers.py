@@ -74,10 +74,12 @@ class VotingSerializer(serializers.Serializer):
 
         choices_id = [choice for question in self.validated_data['questions'] for choice in question['choices']]
         for choice_id in choices_id:
-            Choice.objects.get(id=choice_id).vote()
-        print('SUCCESSFULLY VOTED')
-        # voter.vote()
-        # self.validated_data['already_voted'] = voter.is_already_voted
+            choice = Choice.objects.get(id=choice_id)
+            votesbefore = choice.votes
+            choice.vote()
+            print(f'{choice.id}: {choice.choice_text} \n Votes before: {votesbefore} \n After: {choice.votes}')
+        voter.vote()
+        self.validated_data['already_voted'] = voter.is_already_voted
         self.validated_data['voting_date'] = voter.voting_date
 
 

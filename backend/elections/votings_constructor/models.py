@@ -35,6 +35,7 @@ class Choice(models.Model):
 
     def vote(self):
         self.votes += 1
+        self.save()
 
 
 class Voter(models.Model):

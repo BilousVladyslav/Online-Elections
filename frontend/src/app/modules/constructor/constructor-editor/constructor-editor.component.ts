@@ -164,6 +164,9 @@ export class ConstructorEditorComponent implements OnInit {
         .subscribe(
           res => this.questionSend(res.id),
           errors => this.errorMessage = errors.message);
+      setTimeout(() => {
+        this.router.navigate(['constructor'])
+      }, 1500);
     }
   }
 

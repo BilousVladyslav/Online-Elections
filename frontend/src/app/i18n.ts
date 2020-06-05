@@ -161,7 +161,16 @@ export const i18nAsset = {
           delete: "Delete question",
           add: "Create question"
         },
-        save: "Save"
+        create: "Create voting",
+        edit: {
+          title: "Edit voting",
+          save: "Save changes",
+          delete: "Delete voting",
+          dialog: {
+            description: "Your voting can not be restored",
+            continue: "Delete"
+          }
+        }
       }
     }
   },
@@ -327,7 +336,16 @@ export const i18nAsset = {
           delete: "Видалити питання",
           add: 'Створити питання'
         },
-        save: "Зберегти"
+        create: "Створити голосування",
+        edit: {
+          title: "Редагування голосування",
+          save: "Зберегти зміни",
+          delete: "Видалити голосування",
+          dialog: {
+            description: "Ваше голосування не може бути відновлено",
+            continue: "Видалити"
+          }
+        }
       }
     }
   }

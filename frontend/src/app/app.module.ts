@@ -52,6 +52,7 @@ import { VotingsListComponent } from './modules/votings/votings-list/votings-lis
 import { ActiveVotingPageComponent, SubmitDialog } from './modules/votings/votings-page/votings-page.component';
 import { VotingsProcessComponent } from './modules/votings/votings-process/votings-process.component';
 import { VotingsResultsComponent } from './modules/votings/votings-results/votings-results.component';
+import { ConstructorRedactorComponent, RedactSubmitDialog } from './modules/constructor/constructor-redactor/constructor-redactor.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,9 @@ import { VotingsResultsComponent } from './modules/votings/votings-results/votin
     ActiveVotingPageComponent,
     VotingsProcessComponent,
     VotingsResultsComponent,
-    SubmitDialog
+    SubmitDialog,
+    ConstructorRedactorComponent,
+    RedactSubmitDialog
   ],
   imports: [
     BrowserModule,
@@ -113,6 +116,6 @@ import { VotingsResultsComponent } from './modules/votings/votings-results/votin
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [SubmitDialog],
+  entryComponents: [SubmitDialog, RedactSubmitDialog],
 })
 export class AppModule { }

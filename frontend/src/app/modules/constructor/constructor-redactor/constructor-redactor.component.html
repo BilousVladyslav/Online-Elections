@@ -1,11 +1,11 @@
 <div class="bg-white p-5">
-  <h3 class="text-center p-4 m-0" style="font-weight: 500">{{ 'constructor.create.title' | translate:locale.language }}</h3>
+  <h3 class="text-center p-4 m-0" style="font-weight: 500">{{ 'constructor.create.edit.title' | translate:locale.language }}</h3>
   <h4 class="p-2" style="font-weight: 500">{{ 'constructor.create.subtitle' | translate:locale.language }}:</h4>
   <div *ngIf="errorMessage" class="error-message">
     {{errorMessage}}
   </div>
 
-  <form [formGroup]="votingForm" class="register-user-container">
+  <form *ngIf="votingForm" [formGroup]="votingForm" class="register-user-container">
     <mat-form-field class="">
       <input matInput formControlName="voting_title" placeholder="{{ 'constructor.create.voting.title' | translate:locale.language }}">
       <mat-error *ngIf="votingForm.controls.voting_title.errors && (votingForm.controls.voting_title.dirty || votingForm.controls.voting_title.touched)">
@@ -154,5 +154,7 @@
     </div>
     <button mat-raised-button color="primary" (click)="addQuestion()"> {{ 'constructor.create.question.add' | translate:locale.language }} </button>
   </div>
-  <button mat-raised-button color="warn" (click)="onSubmit()" [disabled]="!formsIsValid()" class="w-100">{{ 'constructor.create.create' | translate:locale.language }}</button>
+  <button mat-raised-button color="warn" (click)="onDelete()">{{ 'constructor.create.edit.delete' | translate:locale.language }}</button>
+  <mat-divider class="my-3"></mat-divider>
+  <button *ngIf="votingForm && questionsFormGroup && votersFormGroup" mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!formsIsValid()" class="w-100">{{ 'constructor.create.edit.save' | translate:locale.language }}</button>
 </div>

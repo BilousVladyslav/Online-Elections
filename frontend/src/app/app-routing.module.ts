@@ -7,6 +7,7 @@ import { ActiveVotingPageComponent } from './modules/votings/votings-page/voting
 import { VotingsResultsComponent } from './modules/votings/votings-results/votings-results.component';
 import { ConstructorComponent } from './modules/constructor/constructor.component';
 import { ConstructorEditorComponent } from './modules/constructor/constructor-editor/constructor-editor.component';
+import { ConstructorRedactorComponent } from './modules/constructor/constructor-redactor/constructor-redactor.component';
 
 const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
@@ -17,6 +18,8 @@ const routes: Routes = [
   { path: 'votings/finished/:votingId', component: VotingsResultsComponent },
   { path: 'constructor', component: ConstructorComponent },
   { path: 'constructor/create', component: ConstructorEditorComponent },
+  { path: 'constructor/:votingId', component: ConstructorRedactorComponent },
+  
   
 
 ];

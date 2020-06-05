@@ -28,17 +28,14 @@ export class VotingsComponent implements OnInit {
     this.votingService.GetActiveVotings()
       .subscribe(data => {
         this.active_votings = data;
-        console.log(this.active_votings)
       });
     this.votingService.GetComingVotings()
       .subscribe(data => {
         this.coming_votings = data;
-        console.log(this.coming_votings)
       });
     this.votingService.GetFinishedVotings()
       .subscribe(data => {
         this.finished_votings = data;
-        console.log(this.finished_votings)
       });
 
   }
