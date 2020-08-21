@@ -1,0 +1,30 @@
+<nav class="navbar navbar-dark bg-dark navbar-expand-md" style="min-height: 50px; margin-bottom: 40px;"
+     role="navigation">
+  <button type="button" class="navbar-toggler collapsed" data-toggle="collapse"
+          data-target="#bs-example-navbar-collapse-1">
+    <span class="sr-only">Toggle navigation</span>&#x2630;
+  </button>
+  <a class="navbar-brand" href="">e-Vote</a>
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+      <li *ngIf="isLogged" class="nav-item"><a routerLink="/profile" class="nav-link">{{ 'navbar.profile' | translate:locale.language }}</a></li>
+      <li *ngIf="isLogged" class="nav-item"><a routerLink="/votings" class="nav-link">{{ 'navbar.votings' | translate:locale.language }}</a></li>
+      <li *ngIf="isLogged && is_organizer" class="nav-item"><a routerLink="/constructor" class="nav-link">{{ 'navbar.constructor' | translate:locale.language }}</a></li>
+      <li *ngIf="isLogged && is_organizer" class="nav-item"><a routerLink="/constructor/create" class="nav-link">{{ 'navbar.create' | translate:locale.language }}</a></li>
+
+    </ul>
+
+    <mat-button-toggle-group class="ml-auto"  name="language" aria-label="Font Style" [(value)]="selectedLanguage">
+      <mat-button-toggle [value]="item.locale" (click)="setLocale(item.locale)" *ngFor="let item of schema">{{ item.text }}</mat-button-toggle>
+    </mat-button-toggle-group>
+    
+    <ul class="nav navbar-nav" style="width: 120px">
+      <li *ngIf="isLogged" class="mx-auto">
+        <a (click)="logOut()" class="nav-link"><b>{{ 'navbar.logout' | translate:locale.language }}</b></a>
+      </li>
+      <li *ngIf="!isLogged" class="mx-auto">
+        <login-component></login-component>
+      </li>
+    </ul>
+  </div>
+</nav>

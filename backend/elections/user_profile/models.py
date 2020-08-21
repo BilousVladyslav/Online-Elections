@@ -1,0 +1,23 @@
+from django.db import models
+from django.conf import settings
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
+
+
+class Role(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    is_organizer = models.BooleanField(default=False, blank=False)
+
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Role.objects.create(user=instance)
+        Token.objects.create(user=instance)
+
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def save_user_profile(sender, instance, **kwargs):
+    instance.role.save()

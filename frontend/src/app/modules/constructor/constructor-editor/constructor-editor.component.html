@@ -1,0 +1,158 @@
+<div class="bg-white p-5">
+  <h3 class="text-center p-4 m-0" style="font-weight: 500">{{ 'constructor.create.title' | translate:locale.language }}</h3>
+  <h4 class="p-2" style="font-weight: 500">{{ 'constructor.create.subtitle' | translate:locale.language }}:</h4>
+  <div *ngIf="errorMessage" class="error-message">
+    {{errorMessage}}
+  </div>
+
+  <form [formGroup]="votingForm" class="register-user-container">
+    <mat-form-field class="">
+      <input matInput formControlName="voting_title" placeholder="{{ 'constructor.create.voting.title' | translate:locale.language }}">
+      <mat-error *ngIf="votingForm.controls.voting_title.errors && (votingForm.controls.voting_title.dirty || votingForm.controls.voting_title.touched)">
+        <mat-error *ngIf="votingForm.controls.voting_title.errors.required" class="error-message">
+          *{{ 'constructor.create.voting.title_required' | translate:locale.language }}
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="">
+      <input matInput formControlName="voting_description" placeholder="{{ 'constructor.create.voting.description' | translate:locale.language }}">
+      <mat-error *ngIf="votingForm.controls.voting_description.errors && (votingForm.controls.voting_description.dirty || votingForm.controls.voting_description.touched)">
+        <mat-error *ngIf="votingForm.controls.voting_description.errors.required" class="error-message">
+          *{{ 'constructor.create.voting.description_required' | translate:locale.language }}
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [ngxMatDatetimePicker]="start_picker"
+             placeholder="{{ 'constructor.create.voting.date_start' | translate:locale.language }}"
+             formControlName="date_started"
+             [min]="minDate">
+      <mat-datepicker-toggle matSuffix [for]="start_picker">
+      </mat-datepicker-toggle>
+      <ngx-mat-datetime-picker #start_picker [touchUi]="true">
+      </ngx-mat-datetime-picker>
+      <mat-error *ngIf="votingForm.controls.date_started.errors && (votingForm.controls.date_started.dirty || votingForm.controls.date_started.touched)">
+        <mat-error *ngIf="votingForm.controls.date_started.errors.required" class="error-message">
+          *{{ 'constructor.create.voting.date_start_required' | translate:locale.language }}
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [ngxMatDatetimePicker]="finish_picker"
+             placeholder="{{ 'constructor.create.voting.date_finish' | translate:locale.language }}"
+             formControlName="date_finished"
+             [min]="minDate">
+      <mat-datepicker-toggle matSuffix [for]="finish_picker">
+      </mat-datepicker-toggle>
+      <ngx-mat-datetime-picker #finish_picker [touchUi]="true">
+      </ngx-mat-datetime-picker>
+      <mat-error *ngIf="votingForm.controls.date_finished.errors && (votingForm.controls.date_finished.dirty || votingForm.controls.date_finished.touched)">
+        <mat-error *ngIf="votingForm.controls.date_finished.errors.required" class="error-message">
+          *{{ 'constructor.create.voting.date_finish_required' | translate:locale.language }}
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+
+  </form>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ 'constructor.create.voters.title' | translate:locale.language }}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ 'constructor.create.voters.subtitle' | translate:locale.language }}
+        <mat-icon>account_circle</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div *ngIf="votersFormGroup" [formGroup]="votersFormGroup" class="">
+      <div formArrayName="emails"
+           *ngFor="let email of votersFormGroup.get('emails').controls; let e = index;">
+
+        {{e + 1}}:
+        <mat-form-field class="m-0 basic_input">
+          <input matInput [formControl]="email" placeholder="{{ 'constructor.create.voters.email.placeholder' | translate:locale.language }}">
+          <mat-error *ngIf="email.errors && (email.dirty || email.touched)">
+            <mat-error *ngIf="email.errors.required" class="error-message">
+              * {{ 'constructor.create.voters.email.required' | translate:locale.language }}
+            </mat-error>
+            <mat-error *ngIf="email.errors.pattern" class="error-message">
+              * {{ 'constructor.create.voters.email.pattern' | translate:locale.language }}
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="warn" class="mx-2" (click)="deleteVoter(e)">{{ 'constructor.create.voters.email.delete' | translate:locale.language }}</button>
+
+      </div>
+      <button mat-raised-button color="primary" (click)="addVoter()">{{ 'constructor.create.voters.button_add' | translate:locale.language }}</button>
+    </div>
+
+  </mat-expansion-panel>
+
+  <mat-divider class=""></mat-divider>
+  <mat-divider class="my-3"></mat-divider>
+
+  <div *ngIf="questionsFormGroup" [formGroup]="questionsFormGroup" class="mb-4">
+    <div formArrayName="questions"
+         *ngFor="let question of questionsFormGroup.get('questions').controls; let i = index;">
+
+      <mat-card class="mx-3 my-4" [formGroupName]="i">
+        <mat-card-content class="input_container">
+
+          <mat-form-field class="basic_input">
+            <input matInput formControlName="question_text" placeholder="{{ 'constructor.create.question.title' | translate:locale.language }}">
+            <mat-error *ngIf="question.controls.question_text.errors && (question.controls.question_text.dirty || question.controls.question_text.touched)">
+              <mat-error *ngIf="question.controls.question_text.errors.required" class="error-message">
+                * {{ 'constructor.create.question.title_required' | translate:locale.language }}
+              </mat-error>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="basic_input">
+            <input matInput formControlName="max_answers" placeholder="{{ 'constructor.create.question.max_answers.placeholder' | translate:locale.language }}">
+            <mat-error *ngIf="question.controls.max_answers.errors && (question.controls.max_answers.dirty || question.controls.max_answers.touched)">
+              <mat-error *ngIf="question.controls.max_answers.errors.required" class="error-message">
+                * {{ 'constructor.create.question.max_answers.required' | translate:locale.language }}
+              </mat-error>
+              <mat-error *ngIf="question.controls.max_answers.errors.pattern" class="error-message">
+                * {{ 'constructor.create.question.max_answers.pattern' | translate:locale.language }}
+              </mat-error>
+              <mat-error *ngIf="question.controls.max_answers.errors.min" class="error-message">
+                * {{ 'constructor.create.question.max_answers.min' | translate:locale.language }}
+              </mat-error>
+            </mat-error>
+          </mat-form-field>
+
+          <div formArrayName="choices"
+               *ngFor="let choice of question.get('choices').controls; let y = index;">
+            <div [formGroupName]="y">
+              {{y + 1}}:
+              <mat-form-field class="m-0 basic_input">
+                <input matInput formControlName="choice_text" placeholder="{{ 'constructor.create.question.choice.placeholder' | translate:locale.language }}">
+                <mat-error *ngIf="choice.controls.choice_text.errors && (choice.controls.choice_text.dirty || choice.controls.choice_text.touched)">
+                  <mat-error *ngIf="choice.controls.choice_text.errors.required" class="error-message">
+                    * {{ 'constructor.create.question.choice.required' | translate:locale.language }}
+                  </mat-error>
+                </mat-error>
+              </mat-form-field>
+
+              <button mat-raised-button color="warn" class="mx-2" (click)="deleteChoice(i, y)">{{ 'constructor.create.question.choice.delete' | translate:locale.language }}</button>
+
+            </div>
+
+          </div>
+
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="warn" (click)="deleteQuestion(i)">{{ 'constructor.create.question.delete' | translate:locale.language }} </button>
+          <button mat-raised-button color="primary" (click)="addChoice(i)">{{ 'constructor.create.question.choice.add' | translate:locale.language }}</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <button mat-raised-button color="primary" (click)="addQuestion()"> {{ 'constructor.create.question.add' | translate:locale.language }} </button>
+  </div>
+  <button mat-raised-button color="warn" (click)="onSubmit()" [disabled]="!formsIsValid()" class="w-100">{{ 'constructor.create.create' | translate:locale.language }}</button>
+</div>

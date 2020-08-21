@@ -1,0 +1,61 @@
+<div class="main bg-light p-3">
+  <mat-progress-bar mode="query" *ngIf="!voting"></mat-progress-bar>
+  <div class="container py-3 mx-auto" style="height: max-content;">
+    <div *ngIf="voting" class="card rounded-lg p-3 shadw" style="height: max-content;">
+
+      <div class="d-inline-block">
+        <h3 class="text-center mb-4">{{ voting.voting_title }}</h3>
+        <h5 class="">{{ 'votings.page.description' | translate:locale.language }}:</h5>
+        <p class="pl-4">{{ voting.voting_description }}</p>
+        <h6>{{ 'votings.page.date_start' | translate:locale.language }}:</h6>
+        <p class="pl-4">{{ voting.date_started | l10nDate:locale.language:{ dateStyle: 'full', timeStyle: 'short' } }}</p>
+        <h6>{{ 'votings.page.date_finish' | translate:locale.language }}:</h6>
+        <p class="pl-4">{{ voting.date_finished | l10nDate:locale.language:{ dateStyle: 'full', timeStyle: 'short' } }}</p>
+        <p>{{ 'votings.page.organizer' | translate:locale.language }}: {{ voting.organizer }}</p>
+      </div>
+
+      <mat-divider></mat-divider>
+      <mat-progress-bar mode="query" *ngIf="!voting_info"></mat-progress-bar>
+      <div *ngIf="voting_info && voting_info.already_voted">
+        <h5 class="text-center p-3"> {{ 'votings.page.successed' | translate:locale.language }}.</h5>
+      </div>
+
+      <div *ngIf="voting_info && !voting_info.already_voted">
+        <div *ngFor="let question of voting_info.questions">
+
+
+          <mat-card class="mx-3 my-4" *ngIf="question.max_answers > 1">
+            <mat-card-header>
+              <mat-card-title>{{question.question_text}}</mat-card-title>
+              <mat-card-subtitle>{{ 'votings.page.max_answers' | translate:locale.language }}: {{question.max_answers}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <h6 *ngIf="!isValidQuestionAnswers(question.question_id, question.max_answers)" style="color:darkred">{{ 'votings.page.error_1' | translate:locale.language }} {{question.max_answers}} {{ 'votings.page.error_2' | translate:locale.language }}</h6>
+              <p *ngFor="let choice of question.choices">
+                <mat-checkbox (change)="updateSubmitModelByCheckbox(choice.choice_id, $event.checked, question.question_id)">{{choice.choice_text}}</mat-checkbox>
+              </p>
+            </mat-card-content>
+          </mat-card>
+
+
+          <mat-card class="mx-3 my-4" *ngIf="question.max_answers == 1">
+            <mat-card-header>
+              <mat-card-title>{{question.question_text}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <mat-radio-group aria-labelledby="example-radio-group-label"
+                               class="example-radio-group"
+                               (change)="updateSubmitModelByRadioButton(question.question_id, $event.value)">
+                <mat-radio-button class="example-radio-button" *ngFor="let choice of question.choices" [value]="choice.choice_id">
+                  {{choice.choice_text}}
+                </mat-radio-button>
+              </mat-radio-group>
+            </mat-card-content>
+          </mat-card>
+
+        </div>
+        <button mat-raised-button color="warn" (click)="onSubmit()" [disabled]="!isReadyToSubmit()">{{ 'votings.page.button' | translate:locale.language }}</button>
+      </div>
+    </div>
+  </div>
+</div>

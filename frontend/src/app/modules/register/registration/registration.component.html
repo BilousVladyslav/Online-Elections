@@ -1,0 +1,71 @@
+<div class="bg-white">
+  <h3 class="text-center p-4 m-0" style="font-weight: 500">{{ 'register.title' | translate:locale.language }}</h3>
+  <ng-template matStepLabel>{{ 'register.subtitle' | translate:locale.language }}</ng-template>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-user-container">
+    <mat-form-field class="form-group">
+      <input matInput formControlName="Email" type="text" placeholder="{{ 'register.email.placeholder' | translate:locale.language }}">
+      <mat-error *ngIf="registerForm.controls.Email.errors && (registerForm.controls.Email.dirty || registerForm.controls.Email.touched)">
+        <mat-error *ngIf="registerForm.controls.Email.errors.pattern">
+          *{{ 'register.email.required' | translate:locale.language }}
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-group">
+      <input matInput formControlName="Password" type="text" type="password" placeholder="{{ 'register.password.placeholder' | translate:locale.language }}">
+      <mat-error *ngIf="registerForm.controls.Password.errors && (registerForm.controls.Password.dirty || registerForm.controls.Password.touched)">
+        <mat-error *ngIf="registerForm.controls.Password.errors.required">
+          *{{ 'register.password.required' | translate:locale.language }}
+        </mat-error>
+        <mat-error *ngIf="registerForm.controls.Password.errors.minlength">
+          *{{ 'register.password.min_length' | translate:locale.language }}
+        </mat-error>
+        <mat-error *ngIf="registerForm.controls.Password.errors.pattern">
+          *{{ 'register.password.regex' | translate:locale.language }}
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-group">
+      <input matInput formControlName="ConfirmPassword" type="text" type="password" placeholder="{{ 'register.password_confirm.placeholed' | translate:locale.language }}">
+      <mat-error *ngIf="registerForm.controls.ConfirmPassword.errors && (registerForm.controls.ConfirmPassword.dirty || registerForm.controls.ConfirmPassword.touched)">
+        <mat-error *ngIf="registerForm.controls.ConfirmPassword.errors.required" class="error-message">
+          *{{ 'register.password_confirm.required' | translate:locale.language }}
+        </mat-error>
+      </mat-error>
+      <mat-error *ngIf="registerForm.controls.ConfirmPassword.errors?.mustMatch" class="error-message">
+        *{{ 'register.password_confirm.must_mutch' | translate:locale.language }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-group">
+      <input matInput formControlName="FirstName" placeholder="{{ 'register.first_name.placeholder' | translate:locale.language }}">
+      <mat-error *ngIf="registerForm.controls.FirstName.errors && (registerForm.controls.FirstName.dirty || registerForm.controls.FirstName.touched)">
+        <mat-error *ngIf="registerForm.controls.FirstName.errors.required">
+          *{{ 'register.first_name.required' | translate:locale.language }}
+        </mat-error>
+        <mat-error *ngIf="registerForm.controls.FirstName.errors.maxlength">
+          *{{ 'register.first_name.max_length' | translate:locale.language }}
+        </mat-error>
+        <mat-error *ngIf="registerForm.controls.FirstName.errors.pattern">
+          *{{ 'register.first_name.regex' | translate:locale.language }}
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-group">
+      <input matInput formControlName="LastName" placeholder="{{ 'register.last_name.placeholder' | translate:locale.language }}">
+      <mat-error *ngIf="registerForm.controls.LastName.errors && (registerForm.controls.LastName.dirty || registerForm.controls.LastName.touched)">
+        <mat-error *ngIf="registerForm.controls.LastName.errors.required">
+          *{{ 'register.last_name.reqired' | translate:locale.language }}
+        </mat-error>
+        <mat-error *ngIf="registerForm.controls.LastName.errors.maxlength">
+          *{{ 'register.last_name.max_length' | translate:locale.language }}
+        </mat-error>
+        <mat-error *ngIf="registerForm.controls.LastName.errors.pattern">
+          *{{ 'register.last_name.regex' | translate:locale.language }}
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+    <div>
+      <button mat-button>{{ 'register.submit' | translate:locale.language }}</button>
+    </div>
+  </form>
+
+</div>
