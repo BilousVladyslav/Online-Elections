@@ -38,6 +38,7 @@ class UserProfile(GenericAPIView, UpdateModelMixin, RetrieveModelMixin, DestroyM
         return self.retrieve(request)
 
     def put(self, request):
+        self.partial_update(request)
         return self.update(request)
 
     def delete(self, request):
